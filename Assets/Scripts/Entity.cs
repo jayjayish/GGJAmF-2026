@@ -53,7 +53,7 @@ public class Entity : MonoBehaviour
     [Button]
     public void AddColor()
     {
-        data.ColorAngle += 10;
+        ColorAngle += 10;
     }
     
 }
