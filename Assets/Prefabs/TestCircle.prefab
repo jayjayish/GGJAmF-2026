@@ -101,10 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ee4024d6965e845826d31f3aac8592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  automaticSpriteColor: 0
-  hitBox: {fileID: 0}
+  data: {fileID: 11400000, guid: fa1f9b7873b622e42a1802cc493f93a1, type: 2}
+  spriteRenderer: {fileID: 7766079305531899001}
+  automaticSpriteColor: 1
+  hitBox: {fileID: 7370501326199152931}
   isPlayer: 0
   size: 1
   attackDamage: 1

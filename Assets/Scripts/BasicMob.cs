@@ -26,7 +26,7 @@ public class BasicMob : Entity
             return;
         }
 
-        if (data.movementSpeed <= 0f)
+        if (movementSpeed <= 0f)
         {
             return;
         }
@@ -39,6 +39,6 @@ public class BasicMob : Entity
         }
 
         var dir = toPlayer.normalized;
-        transform.position += new Vector3(dir.x, dir.y, 0f) * data.movementSpeed;
+        transform.position += new Vector3(dir.x, dir.y, 0f) * movementSpeed;
     }
 }

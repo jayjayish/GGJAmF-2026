@@ -6,7 +6,6 @@ namespace Data.Entities
     public class ProjectileData : EntityData
     {
         public GlobalTypes.ProjectileTypes projType;
-        public float tempMoveSpeed;
         public GameObject projPrefab;
     }
 }

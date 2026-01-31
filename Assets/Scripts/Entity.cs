@@ -6,7 +6,8 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityData data;
     public int health { get; protected set; }
-    
+
+    [SerializeField] protected float movementSpeed;
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected bool automaticSpriteColor;
 
