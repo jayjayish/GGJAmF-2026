@@ -43,14 +43,14 @@ public class Projectile : Entity
             // Same team projectile → ignore and do nothing.
             if (otherProjectile.isPlayer == isPlayer)
             {
-                Physics2D.IgnoreCollision(myCol, other, true);
+                Physics2D.IgnoreCollision(hitBox, other, true);
                 return;
             }
             
             // Player projectile hit enemy projectile
             if (isPlayer)
             {
-                if (otherProjectile.data.getColor() == this.data.getColor()) {
+                if (otherProjectile.data.ColorAngle == this.data.ColorAngle) {
                     // this projectile grows in size
                     size += otherProjectile.size;   // TODO: choose how size increases
                     return;
@@ -59,7 +59,7 @@ public class Projectile : Entity
             // Enemy projectile hit player projectile
             else
             {
-                if (otherProjectile.data.getColor() == this.data.getColor()) {
+                if (otherProjectile.data.ColorAngle == this.data.ColorAngle) {
                     // this projectile is absorbed by the other projectile
                     isDead = true;
                     return;
