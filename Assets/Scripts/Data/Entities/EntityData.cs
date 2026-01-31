@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class EntityData : ScriptableObject
 {
-    [SerializeField] public int health;
-    [SerializeField] public Color color;
+    public int health;
+    public Color color;
 
     public Color getColor()
     {
         return color;
     }
-    public void setColor(Color color)
+    public void setColor(Color newColor)
     {
-        this.color = color;
+        color = newColor;
     }
     public int getHealth()
     {
