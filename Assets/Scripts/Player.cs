@@ -13,8 +13,8 @@ public class Player : Character
     // Update is called once per frame
     protected override void Update()
     {
-    
-        transform.position = playerDirection * movementSpeed;
+        var moveVec = playerDirection *movementSpeed;
+        transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
     }
 
     private void OnMove(Vector2 vector)
