@@ -50,8 +50,8 @@ public class Player : Character
 
     private void Shoot()
     {
-        ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
-        //Debug.Log($"Mouse x: {vector.x}, Mouse y: {vector.y}");
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
+        attack.mouseDirectionNormalized = (mouseTransform.position- transform.position).normalized;
     }
     
     private Vector2 _toRelativePos(Vector2 vector)
