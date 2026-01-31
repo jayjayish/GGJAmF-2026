@@ -1,17 +1,31 @@
+using Colors;
 using NaughtyAttributes;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    [SerializeField]
-    protected EntityData data;
-    
+    [SerializeField] protected EntityData data;
     public int health { get; protected set; }
+    
+    [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] protected bool automaticSpriteColor;
 
-    public int ColorAngle;
-
+    [ShowNonSerializedField]
+    private int _colorAngle;
+    public int ColorAngle
+    {
+        get => _colorAngle;
+        set
+        {
+            _colorAngle = value % 360;
+            if (automaticSpriteColor && spriteRenderer)
+            {
+                spriteRenderer.color = new ColorHSV(_colorAngle).ToColor();
+            }
+        }
+    }
+    
     protected bool isDead;
-
     protected Collider2D hurtBox;
     
 
@@ -52,15 +66,18 @@ public class Entity : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected virtual void Update()
-    {
-        
-    }
+    protected virtual void Update() { }
 
     [Button]
     public void AddColor()
     {
         ColorAngle += 10;
+    }
+    
+    [Button]
+    public void SubtractColor()
+    {
+        ColorAngle -= 10;
     }
 
     public virtual void TakeDamage(int amount)

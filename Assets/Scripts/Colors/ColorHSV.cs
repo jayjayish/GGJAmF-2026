@@ -12,10 +12,7 @@ namespace Colors
 		*/
 		public ColorHSV(float h, float s, float v)
 		{
-			_h = h;
-			_s = s;
-			_v = v;
-			_a = 1.0f;
+			SetAllVariables(h,  s, v, 1f);
 		}
 		
 		/**
@@ -23,17 +20,24 @@ namespace Colors
 		*/
 		public ColorHSV(float h)
 		{
-			_h = h;
-			_s = 0.8f;
-			_v = 1f;
-			_a = 1.0f;
+			SetAllVariables(h, 0.8f, 1f, 1f);
+		}
+
+		public ColorHSV(float h, float s, float v, float a)
+		{
+			SetAllVariables(h, s, v, a);
 		}
 
 		/**
 		* Construct without alpha (which defaults to 1)
 		*/
-		public ColorHSV(float h, float s, float v, float a)
+		private void SetAllVariables(float h, float s, float v, float a)
 		{
+			if (h < 0f)
+			{
+				h += 360;
+			}
+			h %= 360f;
 			_h = h;
 			_s = s;
 			_v = v;

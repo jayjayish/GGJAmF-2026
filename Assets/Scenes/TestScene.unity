@@ -219,7 +219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a9837993051f9e4e8d06242f0aa1e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 172125498ec01fd4fa85aa232a978dda, type: 2}
+  spriteRenderer: {fileID: 162220867}
+  automaticSpriteColor: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
