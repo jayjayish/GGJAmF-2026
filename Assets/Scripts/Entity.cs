@@ -1,9 +1,12 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
     [SerializeField]
     protected EntityData data;
+
+    protected bool isDead;
 
     protected Collider2D hurtBox;
 
@@ -44,4 +47,11 @@ public class Entity : MonoBehaviour
     {
         
     }
+
+    [Button]
+    public void AddColor()
+    {
+        data.ColorAngle += 10;
+    }
+    
 }
