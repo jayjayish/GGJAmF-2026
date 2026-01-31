@@ -20,7 +20,7 @@ namespace Entities
         public static void Initialize(Action onSuccess = null)
         {
             // Cache the scene settings async
-            Addressables.LoadAssetAsync<ProjectileContainer>(GlobalAddresses.SceneContainerAddr).Completed += asyncHandle =>
+            Addressables.LoadAssetAsync<ProjectileContainer>(GlobalAddresses.ProjectilesAddr).Completed += asyncHandle =>
             {
                 if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
                 {
