@@ -345,8 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6938f35def626384f939012578565626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  isDead: 0
+  data: {fileID: 11400000, guid: 172125498ec01fd4fa85aa232a978dda, type: 2}
+  spriteRenderer: {fileID: 0}
+  automaticSpriteColor: 0
   playerDirection: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

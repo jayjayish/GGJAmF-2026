@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Character : Entity
 {
-    [SerializeField] protected float movementSpeed = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
