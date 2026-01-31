@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "ayellowpaper.serialized-dictionary": {
+      "version": "https://github.com/aestheticianlabs/SerializedDictionary.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "26a5c27bb07e850536e9296ead940116adbe9d4d"
+    },
+    "com.dbrizov.naughtyattributes": {
+      "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
+    },
+    "com.intothedev.multitags": {
+      "version": "https://github.com/IntoTheDev/MultiTag-System-for-Unity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dd807fb2688a5f19d671928f243c70f66f4acf55"
+    },
     "com.unity.2d.animation": {
       "version": "10.2.2",
       "depth": 1,
@@ -144,7 +165,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.38",
+      "version": "3.0.39",
       "depth": 0,
       "source": "registry",
       "dependencies": {
