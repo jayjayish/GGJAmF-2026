@@ -27,7 +27,7 @@ public static class InputManager
         Right
     }
     
-    public static void Initialize()
+    public static void Initialize(Action callback = null)
     {
         Addressables.LoadAssetAsync<InputActionAsset>(GlobalAddresses.InputActionsAddr).Completed += asyncHandle =>
         {
@@ -35,6 +35,7 @@ public static class InputManager
             {
                 _actionAsset = asyncHandle.Result;
                 InitializeListeners();
+                callback?.Invoke();
             }
             else
             {

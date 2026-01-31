@@ -8,6 +8,7 @@ namespace Data
             MainMenu,
             Hub,
             UI,
+            Test = 254
         }
 
         public enum Color : byte
