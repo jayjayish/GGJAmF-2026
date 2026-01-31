@@ -148,5 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  ColorAngle: 0
   movementSpeed: 0.26
   playerDirection: {x: 0, y: 0}
