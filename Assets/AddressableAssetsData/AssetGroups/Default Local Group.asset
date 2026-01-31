@@ -25,13 +25,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 30d11cfcc4d4fb344b3c32ff0b763585
-    m_Address: Assets/Scenes/AmyTest.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8a972423a8652f439adf1300d2cb4b8
-    m_Address: Assets/Scenes/FredTest.unity
+  - m_GUID: 96773598573b90a488496750cd22370c
+    m_Address: so-projectileContainer
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

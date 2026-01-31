@@ -6,7 +6,8 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityData data;
     public int health { get; protected set; }
-    
+
+    [SerializeField] protected float movementSpeed;
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected bool automaticSpriteColor;
 
@@ -28,7 +29,6 @@ public class Entity : MonoBehaviour
     protected bool isDead;
     protected Collider2D hurtBox;
     
-
     // Override in subclasses (e.g. Projectile) as needed.
     protected virtual bool ColliderIsTrigger => false;
 

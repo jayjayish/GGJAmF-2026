@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b879b85e156d5764b8648c7c487f653f, type: 3}
-  m_Name: so-slimeData
+  m_Script: {fileID: 11500000, guid: bf0005e1f9924bf9b3a423c698cffbcf, type: 3}
+  m_Name: so-testProjectileSettings
   m_EditorClassIdentifier: 
-  health: 10
-  movementSpeed: 0.01
-  attackDamage: 1
-  knockBackForce: 0.05
+  health: 1
+  projType: 254
+  tempMoveSpeed: 1
+  projPrefab: {fileID: 387692449361187123, guid: 4d8e172d95286ac4aa9dc08307b6a900, type: 3}

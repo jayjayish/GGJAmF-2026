@@ -1,4 +1,5 @@
 using System;
+using Entities;
 using UnityEngine;
 
 public class Player : Character
@@ -29,21 +30,34 @@ public class Player : Character
     }
     
     [SerializeField] private Vector2 playerDirection;
+    public Transform mouseTransform;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         InputManager.AddMoveAction(OnMove);
+        InputManager.AddAttackAction(Shoot);
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        var moveVec = playerDirection * data.movementSpeed;
+        var moveVec = playerDirection * movementSpeed;
         transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
     }
 
     private void OnMove(Vector2 vector)
     {
         playerDirection = vector.normalized;
+    }
+
+    private void Shoot()
+    {
+        ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
+        //Debug.Log($"Mouse x: {vector.x}, Mouse y: {vector.y}");
+    }
+    
+    private Vector2 _toRelativePos(Vector2 vector)
+    {
+        return (Vector2)transform.position - vector;
     }
 }

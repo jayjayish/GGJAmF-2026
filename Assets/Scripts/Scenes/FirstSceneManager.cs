@@ -1,5 +1,6 @@
 using System;
 using Data;
+using Entities;
 using UnityEngine;
 
 namespace Scenes
@@ -11,9 +12,10 @@ namespace Scenes
         
         private void Start()
         {
-            _itemsToLoad = 2;
+            _itemsToLoad = 3;
             InputManager.Initialize(CheckAllInitialized);
             SceneManager.CacheSceneSettingsVarAsync(CheckAllInitialized);
+            ProjectileManager.Initialize(CheckAllInitialized);
         }
 
         private void CheckAllInitialized()

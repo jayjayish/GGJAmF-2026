@@ -5,5 +5,6 @@ namespace Data
     {
         public const string SceneContainerAddr = "so-sceneContainer";
         public const string InputActionsAddr = "InputSystem_Actions";
+        public const string ProjectilesAddr = "so-projectileContainer";
     }
 }

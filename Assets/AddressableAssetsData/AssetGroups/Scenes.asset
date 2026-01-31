@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Scenes
   m_GUID: 45f2ad0c68f05ed4aa65f9392724e70e
   m_SerializeEntries:
+  - m_GUID: 30d11cfcc4d4fb344b3c32ff0b763585
+    m_Address: Assets/Scenes/AmyTest.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4b31e1d5aebddb847a37f8bf70a1c813
     m_Address: Assets/Scenes/UIScene.unity
     m_ReadOnly: 0
@@ -27,6 +32,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 932491a5210e3ea438309d176d1fe5f2
     m_Address: Assets/Scenes/TestScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8a972423a8652f439adf1300d2cb4b8
+    m_Address: Assets/Scenes/FredTest.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
