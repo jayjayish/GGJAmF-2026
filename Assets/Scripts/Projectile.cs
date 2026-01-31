@@ -50,7 +50,7 @@ public class Projectile : Entity
             // Player projectile hit enemy projectile
             if (isPlayer)
             {
-                if (otherProjectile.data.ColorAngle == this.data.ColorAngle) {
+                if (otherProjectile.ColorAngle == ColorAngle) {
                     // this projectile grows in size
                     size += otherProjectile.size;   // TODO: choose how size increases
                     return;
@@ -59,7 +59,7 @@ public class Projectile : Entity
             // Enemy projectile hit player projectile
             else
             {
-                if (otherProjectile.data.ColorAngle == this.data.ColorAngle) {
+                if (otherProjectile.ColorAngle == ColorAngle) {
                     // this projectile is absorbed by the other projectile
                     isDead = true;
                     return;

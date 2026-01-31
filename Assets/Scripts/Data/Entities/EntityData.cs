@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 public class EntityData : ScriptableObject
 {
     public int health;
-    public int ColorAngle;
 
     public void takeDamage(int damage) 
     {

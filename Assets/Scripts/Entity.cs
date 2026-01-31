@@ -5,6 +5,8 @@ public class Entity : MonoBehaviour
 {
     [SerializeField]
     protected EntityData data;
+    
+    public int ColorAngle;
 
     protected bool isDead;
 
