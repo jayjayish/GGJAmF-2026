@@ -14,8 +14,10 @@ public static class InputManager
     private const string AttackKey = "Attack";
     private const string LeftRotateKey = "LeftRotate";
     private const string RightRotateKey = "RightRotate";
+    private const string AimKey = "Aim";
     
     private static List<Action<Vector2>> MoveActions = new ();
+    private static List<Action<Vector2>> AimActions = new ();
     private static List<Action> AttackActions = new ();
     private static List<Action> LeftRotateActions = new ();
     private static List<Action> RightRotateActions = new ();
@@ -48,6 +50,8 @@ public static class InputManager
     {
         _actionAsset.FindAction(MoveKey).performed += InvokeMove;
         _actionAsset.FindAction(MoveKey).canceled += InvokeMove;
+        _actionAsset.FindAction(AimKey).performed += InvokeAim;
+        _actionAsset.FindAction(AimKey).canceled += InvokeAim;
         _actionAsset.FindAction(AttackKey).started += InvokeAttack;
         _actionAsset.FindAction(LeftRotateKey).started += InvokeLeft;
         _actionAsset.FindAction(RightRotateKey).started += InvokeRight;
@@ -72,6 +76,27 @@ public static class InputManager
             action.Invoke(direction);
         }
     }
+    
+    public static void AddAimAction(Action<Vector2> callback)
+    {
+        AimActions.Add(callback);
+    }
+    
+    public static void RemoveAimAction(Action<Vector2> callback)
+    {
+        AimActions.Remove(callback);
+    }
+    
+    public static void InvokeAim(InputAction.CallbackContext context)
+    {
+        
+        var direction = context.ReadValue<Vector2>();
+        foreach(Action<Vector2> action in AimActions)
+        {
+            action.Invoke(direction);
+        }
+    }
+    
     public static void AddAttackAction(Action callback)
     {
         AttackActions.Add(callback);
