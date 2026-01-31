@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using CoalCar.Utility.Data;
-using Crossworld.Utility;
+using Data;
 using UnityEngine;
 
-namespace Crossworld.Scenes
+namespace Scenes
 {
 	/// <summary>
 	/// Represents a collection of levels to be loaded additively.
@@ -21,7 +20,7 @@ namespace Crossworld.Scenes
 		/// Will return False if no entry is found of the given type
 		/// </summary>
 		/// <returns></returns>
-		public bool TryGetSetting(CrossworldTypes.SceneName sceneName, out SceneSettings @out)
+		public bool TryGetSetting(GlobalTypes.SceneName sceneName, out SceneSettings @out)
 		{
 			foreach (SceneSettings setting in sceneSettingsEntries)
 			{
@@ -36,54 +35,16 @@ namespace Crossworld.Scenes
 		}
 
 		/// <summary>
-		/// Returns true if it finds the entry in "SceneEntries"
-		/// matching the given "sceneType". That entry will also be returned as an out var.
-		/// Will return False if no entry is found of the given type
-		/// </summary>
-		/// <returns></returns>
-		public bool TryGetSetting(GlobalTypes.SceneType sceneType, out SceneSettings @out)
-		{
-			foreach (SceneSettings setting in sceneSettingsEntries)
-			{
-				if (setting != null && setting.SceneType == sceneType)
-				{
-					@out = setting;
-					return true;
-				}
-			}
-			@out = null;
-			return false;
-		}
-
-		/// <summary>
 		/// Returns all scene settings containing the given "sceneName".
 		/// If no settings are found, an empty list will be returned
 		/// </summary>
 		/// <returns></returns>
-		public IList<SceneSettings> GetAllSettings(CrossworldTypes.SceneName sceneName)
+		public IList<SceneSettings> GetAllSettings(GlobalTypes.SceneName sceneName)
 		{
 			List<SceneSettings> tSettings = new List<SceneSettings>();
 			foreach (SceneSettings setting in sceneSettingsEntries)
 			{
 				if (setting.SceneName == sceneName)
-				{
-					tSettings.Add(setting);
-				}
-			}
-			return tSettings;
-		}
-
-		/// <summary>
-		/// Returns all scene settings containing the given "sceneType".
-		/// If no settings are found, an empty list will be returned
-		/// </summary>
-		/// <returns></returns>
-		public IList<SceneSettings> GetAllSettings(GlobalTypes.SceneType sceneType)
-		{
-			List<SceneSettings> tSettings = new List<SceneSettings>();
-			foreach (SceneSettings setting in sceneSettingsEntries)
-			{
-				if (setting.SceneType == sceneType)
 				{
 					tSettings.Add(setting);
 				}

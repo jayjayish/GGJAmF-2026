@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data;
 using DG.Tweening;
 #if UNITY_EDITOR
 using System.Diagnostics;
@@ -10,7 +11,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
-using LogType = CoalCar.Utility.LogType;
 
 namespace Scenes
 {
@@ -23,7 +23,7 @@ namespace Scenes
 		/// <summary>
 		/// Will contain all scene instances by scene type
 		/// </summary>
-		private static readonly Dictionary<CrossworldTypes.SceneName, SceneInstance> LoadedScenes = new ();
+		private static readonly Dictionary<GlobalTypes.SceneName, SceneInstance> LoadedScenes = new ();
 
 		/// <summary>
 		/// Cached addressable script. obj. containing all scene settings
@@ -32,57 +32,24 @@ namespace Scenes
 		/// </summary>
 		private static SceneSettingsContainer _sceneSettingsContainer;
 
-		//			--- LOADING SCENE VARS ---
-
-		// Variables referring to the scene showing the "Loading ..." text
-		// It'll be shown in between scenes (while loading and unloading scenes
-		// and while the _loadingSceneCounter value is not 0)
-
-		/// <summary>
-		/// "_loadingSceneCounter":
-		/// Counter used to control the show/hide of the "Loading..." scene
-		/// See: <see cref="AddLoadingSceneCounter"/>
-		/// and <see cref="RemoveLoadingSceneCounter"/>
-		/// </summary>
-		private static uint _loadingSceneCounter;
-
-		private static bool _isLoadingSceneShowing;
-		/// <summary>
-		/// Indicates if the "Loading ..." scene is showing or not
-		/// </summary>
-		public static bool IsLoadingSceneShowing => _isLoadingSceneShowing;
-
-		public static bool LoadingEnabled;
-
-		public static Action OnLoadingCounterZero;
-		public static Action OnLoadingCounterNonZero;
-
 		/// <summary>
 		/// Collections used to keep track of the loading/unloading in progress
 		/// scenes. This is to prevent loading/unloading a new scene if a same scene
 		/// type is in the middle of an async process of being loaded/unloaded.
 		///
 		/// </summary>
-		private static readonly HashSet<CrossworldTypes.SceneName> LoadingScenes = new ();
-		private static readonly HashSet<CrossworldTypes.SceneName> UnloadingScenes = new ();
+		private static readonly HashSet<GlobalTypes.SceneName> LoadingScenes = new ();
+		private static readonly HashSet<GlobalTypes.SceneName> UnloadingScenes = new ();
 
 		//			--- UNLOADING SCENE VARS ---
 
-		/// <summary>
-		/// When loading a new scene, Wait for a few miliseconds to
-		/// wait for the scene's objects to load so that any of them can call
-		/// "AddLoadingSceneCounter()" if needed, before the "Loading..." screen
-		/// disappears
-		/// </summary>
-		private const float LoadSceneWaitTime = 0.1F;
-
 		private static Scene _firstScene;
 
-		private static CrossworldTypes.SceneName _lastSceneLoaded;
+		private static GlobalTypes.SceneName _lastSceneLoaded;
 		/// <summary>
 		/// Returns the last scene loaded
 		/// </summary>
-		public static CrossworldTypes.SceneName LastSceneLoaded => _lastSceneLoaded;
+		public static GlobalTypes.SceneName LastSceneLoaded => _lastSceneLoaded;
 
 		// --------------------------------------------------------PUBLIC EVENTS
 
@@ -96,7 +63,7 @@ namespace Scenes
 		/// Fired in "UnloadSceneAsync()" after successfully unloading a scene
 		/// and after that method's local "onUnload" event arg.
 		/// </summary>
-		public static Action<CrossworldTypes.SceneName> OnSceneUnload;
+		public static Action<GlobalTypes.SceneName> OnSceneUnload;
 
 		// -------------------------------------------------------PUBLIC METHODS
 
@@ -116,11 +83,11 @@ namespace Scenes
 		/// The scene must exist in the "so-sceneSettings" scriptable
 		/// object as an entry and its "SceneType" must be unique among all entries
 		/// </summary>
-		public static void LoadSceneAsync(CrossworldTypes.SceneName sceneName, bool willSceneBeActive = true, Action<CrossworldTypes.SceneName> onLoad = null)
+		public static void LoadSceneAsync(GlobalTypes.SceneName sceneName, bool willSceneBeActive = true, Action<GlobalTypes.SceneName> onLoad = null)
 		{
 			if (LoadingScenes.Contains(sceneName))
 			{
-				_LogError(
+				UnityEngine.Debug.LogError(
 					$"Cannot load new scene of type {sceneName}. " +
 					$"A scene of the same type is already being loaded");
 				return;
@@ -128,7 +95,7 @@ namespace Scenes
 
 			if (LoadedScenes.ContainsKey(sceneName))
 			{
-				_LogError($"Cannot load scene of type {sceneName}. It's already loaded");
+				UnityEngine.Debug.LogError($"Cannot load scene of type {sceneName}. It's already loaded");
 				return;
 			}
 
@@ -146,19 +113,19 @@ namespace Scenes
 		/// This method will return if no scene of the given type was
 		/// loaded and currently active.
 		/// </summary>
-		public static void UnloadSceneAsync(CrossworldTypes.SceneName sceneName, Action<CrossworldTypes.SceneName> onUnload = null)
+		public static void UnloadSceneAsync(GlobalTypes.SceneName sceneName, Action<GlobalTypes.SceneName> onUnload = null)
 		{
 			if (UnloadingScenes.Contains(sceneName))
 			{
-				_LogError(
+				UnityEngine.Debug.LogError(
 					$"Cannot unload new scene of type {sceneName}. " +
 					$"A scene of the same type is already being unloaded");
 				return;
 			}
 
-			if (! LoadedScenes.ContainsKey(sceneName))
+			if (!LoadedScenes.ContainsKey(sceneName))
 			{
-				_LogError($"Cannot unload scene of type {sceneName}. It's not loaded");
+				UnityEngine.Debug.LogError($"Cannot unload scene of type {sceneName}. It's not loaded");
 				return;
 			}
 
@@ -174,7 +141,7 @@ namespace Scenes
 		/// If no entries are found, an empty list will be returned
 		/// </summary>
 		public static void GetSceneSettingsAsync(
-			CrossworldTypes.SceneName sceneName, Action <IList<SceneSettings>> onGet)
+			GlobalTypes.SceneName sceneName, Action <IList<SceneSettings>> onGet)
 		{
 			// Set (Caches) the "_sceneSettingsContainer" variable if it's null.
 			// Needed before using "_sceneSettingsContainer" below
@@ -183,91 +150,6 @@ namespace Scenes
 				IList<SceneSettings> scenes = _sceneSettingsContainer.GetAllSettings(sceneName);
 				onGet?.Invoke(scenes);
 			});
-		}
-
-		// /// <summary>
-		// /// Retrieves the Scene Settings entry that corresponds to the given
-		// /// "sceneType" if it exists.
-		// /// <br /><br />
-		// /// If no entries are found, an empty list will be returned
-		// /// </summary>
-		// /// <param name="sceneType"></param>
-		// /// <param name="onGet"></param>
-		// public static void GetSceneSettingsAsync(SceneType sceneType, Action <IList<SceneSettings>> onGet)
-		// {
-		// 	CacheSceneSettingsVarAsync(() =>
-		// 	{
-		// 		IList<SceneSettings> scenes = _sceneSettingsContainer.GetAllSettings(sceneType);
-		// 		onGet?.Invoke(scenes);
-		// 	});
-		// }
-
-		/// <summary>
-		/// Adds one to the LoadingSceneCounter.
-		/// <br /><br />
-		/// If "LoadingSceneCounter" = 0 and: a scene is starting to load/unload or
-		/// calling "AddLoadingSceneCounter()", the counter will go up
-		/// and the "Loading..." scene will show up (load)
-		/// </summary>
-		public static void AddLoadingSceneCounter()
-		{
-			if (_loadingSceneCounter == 0)
-			{
-				_ShowLoadingUi();
-				OnLoadingCounterNonZero?.Invoke();
-			}
-			++_loadingSceneCounter;
-			#if UNITY_EDITOR
-			StackTrace stackTrace = new StackTrace();
-			if (stackTrace.FrameCount > 1)
-			{
-				var caller = stackTrace.GetFrame(1).GetMethod();
-				_Log($"LoadingSceneCounter increased to {_loadingSceneCounter} by: {caller.DeclaringType?.FullName}.{caller.Name}");
-
-			}
-			else
-			{
-				_Log($"LoadingSceneCounter increased to {_loadingSceneCounter}");
-			}
-			#else
-				_Log($"LoadingSceneCounter increased to {_loadingSceneCounter}");
-			#endif
-		}
-
-		/// <summary>
-		/// Removes one from the LoadingSceneCounter.
-		/// <br /><br />
-		/// If "LoadingSceneCounter" > 0 and: a scene is finishing to load/unload or
-		/// calling "RemoveLoadingSceneCounter()", the counter will go down.
-		/// If it reaches 0, the "Loading..." scene will hide (unload)
-		/// </summary>
-		public static void RemoveLoadingSceneCounter()
-		{
-			// Do nothing if counter is already zero
-			if (_loadingSceneCounter == 0) { return; }
-			--_loadingSceneCounter;
-
-			if (_loadingSceneCounter == 0)
-			{
-				_HideLoadingUi();
-				OnLoadingCounterZero?.Invoke();
-			}
-
-#if UNITY_EDITOR
-			StackTrace stackTrace = new StackTrace();
-			if (stackTrace.FrameCount > 1)
-			{
-				var caller = stackTrace.GetFrame(1).GetMethod();
-				_Log($"LoadingSceneCounter decreased to {_loadingSceneCounter} by: {caller.DeclaringType?.FullName}.{caller.Name}");
-
-			}
-			else
-			{
-				_Log($"LoadingSceneCounter decreased to {_loadingSceneCounter}");
-			}
-#else
-			_Log($"LoadingSceneCounter decreased to {_loadingSceneCounter}");
-#endif
 		}
 
 		/// <summary>
@@ -279,7 +161,7 @@ namespace Scenes
 		/// <param name="name"></param>
 		/// <param name="scene"></param>
 		/// <returns></returns>
-		public static bool TryGetLoadedSceneInstance(CrossworldTypes.SceneName name, out Scene scene)
+		public static bool TryGetLoadedSceneInstance(GlobalTypes.SceneName name, out Scene scene)
 		{
 			if (LoadedScenes.TryGetValue(name, out var instance))
 			{
@@ -288,30 +170,6 @@ namespace Scenes
 			}
 			scene = default;
 			return false;
-		}
-
-		/// <summary>
-		/// Returns the default obstacle types set to the given scene
-		/// <br />
-		/// If no scene settings are found that matches the given "sceneName"
-		/// "onGet" callback will still be fired with an empty list of
-		/// obstacle types
-		/// </summary>
-		/// <param name="sceneName"></param>
-		/// <param name="onGet"></param>
-		public static void GetObstacleTypesAsync(
-			CrossworldTypes.SceneName sceneName, Action <List<CrossworldTypes.TowerType>> onGet)
-		{
-			CacheSceneSettingsVarAsync(() =>
-			{
-				List<CrossworldTypes.TowerType> obstacles = new();
-				if (_sceneSettingsContainer.TryGetSetting(sceneName, out SceneSettings sceneSettings))
-				{
-					obstacles = sceneSettings.TowerTypes;
-				}
-
-				onGet?.Invoke(obstacles);
-			});
 		}
 
 		public static void PlaceObjectInPlayerScene(List<GameObject> objectToMove)
@@ -331,14 +189,6 @@ namespace Scenes
 		public static void RecordActiveSceneAsFirstScene()
 		{
 			_firstScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-		}
-
-		/// <summary>
-		/// Returns true if last scene loaded was either the lobby or network
-		/// </summary>
-		public static bool IsLastSceneLoadedLobbyOrNetwork()
-		{
-			return _lastSceneLoaded is CrossworldTypes.SceneName.Lobby or CrossworldTypes.SceneName.Network;
 		}
 
 		// ------------------------------------------------------PRIVATE METHODS
@@ -363,7 +213,7 @@ namespace Scenes
 					}
 					else
 					{
-						_LogError("SceneSettings couldn't be loaded");
+						UnityEngine.Debug.LogError("SceneSettings couldn't be loaded");
 					}
 				};
 			}
@@ -377,13 +227,13 @@ namespace Scenes
 		/// Will do all the scene loading process
 		/// </summary>
 		private static void _LoadSceneAsync(
-			CrossworldTypes.SceneName sceneName,
+			GlobalTypes.SceneName sceneName,
 			bool willSceneBeActive = true,
-			Action<CrossworldTypes.SceneName> onLoad = null)
+			Action<GlobalTypes.SceneName> onLoad = null)
 		{
 			if (_sceneSettingsContainer == null)
 			{
-				_LogError($"Cannot load scene of type {sceneName}. No SceneSettings container is loaded.");
+				UnityEngine.Debug.LogError($"Cannot load scene of type {sceneName}. No SceneSettings container is loaded.");
 				return;
 			}
 
@@ -391,7 +241,7 @@ namespace Scenes
 			// Needed before using "_sceneSettingsContainer" below
 			if (!_sceneSettingsContainer.TryGetSetting(sceneName, out SceneSettings sceneEntry))
 			{
-				_LogError(
+				UnityEngine.Debug.LogError(
 					$"Cannot load scene." +
 					$"Scene of type {sceneName} could not be found " +
 					$"in SceneSettings");
@@ -399,7 +249,6 @@ namespace Scenes
 			else
 			{
 				LoadingScenes.Add(sceneName);
-				AddLoadingSceneCounter();
 
 				Addressables.LoadSceneAsync(sceneEntry.SceneRef, LoadSceneMode.Additive).Completed += asyncHandle =>
 				{
@@ -407,25 +256,17 @@ namespace Scenes
 					{
 						SceneInstance tSceneInst = asyncHandle.Result;
 
-						if (sceneName != CrossworldTypes.SceneName.Network)
+						if (sceneName != GlobalTypes.SceneName.UI)
 						{
 							_lastSceneLoaded = sceneName;
 						}
 						LoadedScenes.Add(sceneName, tSceneInst);
-						_Log($"Scene of type {sceneName} loaded successfully");
+						UnityEngine.Debug.Log($"Scene of type {sceneName} loaded successfully");
 
 						// Set this scene as active ?
 						if (willSceneBeActive)
 						{
 							UnityEngine.SceneManagement.SceneManager.SetActiveScene(tSceneInst.Scene);
-							_Log($"Scene of type {sceneName} is now the active scene");
-						}
-
-						// Set scene Gravity (other than network scene
-						// as network scene doesn't have any phuysics gameplay)
-						if (sceneEntry.SceneName != CrossworldTypes.SceneName.Network)
-						{
-							Physics.gravity = sceneEntry.Gravity;
 						}
 
 						onLoad?.Invoke(sceneName); // Local arg event
@@ -433,19 +274,12 @@ namespace Scenes
 					}
 					else
 					{
-						_LogError(
+						UnityEngine.Debug.LogError(
 							$"Cannot async load scene of type {sceneName}: " +
 							$"Status non successful");
 					}
 
 					LoadingScenes.Remove(sceneName);
-
-					// ONLY FOR NON "LOADING..." SCENES:
-					// Wait for a few miliseconds to
-					// wait for the scene's objects to load so that any of them can call
-					// "AddLoadingSceneCounter()" if needed, before the "Loading..." screen
-					// disappears
-					DOTween.Sequence().AppendInterval(LoadSceneWaitTime).OnComplete(RemoveLoadingSceneCounter);
 				};
 			}
 		}
@@ -454,74 +288,32 @@ namespace Scenes
 		/// Will do all the scene unloading process
 		/// </summary>
 		private static void _UnloadSceneAsync(
-			CrossworldTypes.SceneName sceneName,
-			Action<CrossworldTypes.SceneName> onUnload = null)
+			GlobalTypes.SceneName sceneName,
+			Action<GlobalTypes.SceneName> onUnload = null)
 		{
 			SceneInstance tSceneInst = LoadedScenes[sceneName];
 
 			UnloadingScenes.Add(sceneName);
-			AddLoadingSceneCounter();
 
 			Addressables.UnloadSceneAsync(tSceneInst).Completed += asyncHandle =>
 			{
 				if (asyncHandle.Status == AsyncOperationStatus.Succeeded)
 				{
 					LoadedScenes.Remove(sceneName);
-					_Log($"Scene of type {sceneName} unloaded successfully");
+					UnityEngine.Debug.Log($"Scene of type {sceneName} unloaded successfully");
 
 					onUnload?.Invoke(sceneName); // Local arg event
 					OnSceneUnload?.Invoke(sceneName); // Static class event
 				}
 				else
 				{
-					_LogError(
+					UnityEngine.Debug.LogError(
 						$"Cannot async unload scene of type {sceneName}: " +
 						$"Status non successful");
 				}
 
 				UnloadingScenes.Remove(sceneName);
-				RemoveLoadingSceneCounter();
 			};
-		}
-
-		//		--- Methods used for showing/hiding the "Loading ..." Ui
-
-		private static void _ShowLoadingUi()
-		{
-			if (_isLoadingSceneShowing) { return; }
-
-			// Must set the flag to true the first time the loading screen
-			// is shown as it's an async load, to prevent subsequent scene loads
-			// in this batch to prevent a stack overflow of calls
-			_isLoadingSceneShowing = true;
-
-			_ShowHideLoadingUi(true);
-		}
-
-		private static void _HideLoadingUi()
-		{
-			// Return the flag back to false (default value) so that the next
-			// batch of scenes to be loaded have the loading screen shown
-			_isLoadingSceneShowing = false;
-
-			_ShowHideLoadingUi(false);
-		}
-
-		private static void _ShowHideLoadingUi(bool willShow)
-		{
-			if (FirstSceneManager.Instance == null)
-			{
-				_LogError(
-					$"\"Loading ...\" scene message cannot be shown as " +
-					$"\"FirstSceneManager\" is null. " +
-					$"This is not a game breaking error. " +
-					$"However, make sure the \"FirstScene\" Unity scene is the" +
-					$"very first scene to load. Then, select the next scene to load" +
-					$"from the \"FirstSceneManager\" in-scene object");
-				return;
-			}
-
-			LoadingEnabled = willShow;
 		}
 	}
 }
