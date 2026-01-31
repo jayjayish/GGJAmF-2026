@@ -28,7 +28,6 @@ public class Entity : MonoBehaviour
     protected bool isDead;
     protected Collider2D hurtBox;
     
-
     // Override in subclasses (e.g. Projectile) as needed.
     protected virtual bool ColliderIsTrigger => false;
 
