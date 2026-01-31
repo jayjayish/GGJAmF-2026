@@ -3,6 +3,29 @@ using UnityEngine;
 
 public class Player : Character
 {
+    private static Player _instance;
+    public static Player Instance => _instance;
+
+    protected override void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            Debug.LogError("[MonoSingleton<" + typeof(Player).Name + ">]" + " duplicate instance was deleted");
+            return;
+        }
+
+        _instance = this;
+        
+        base.Awake();
+    }
+
+
+    protected virtual void OnDestroy()
+    {
+        _instance = null;
+    }
+    
     [SerializeField] private Vector2 playerDirection;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()

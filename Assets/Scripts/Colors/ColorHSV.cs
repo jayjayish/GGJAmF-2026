@@ -17,6 +17,17 @@ namespace Colors
 			_v = v;
 			_a = 1.0f;
 		}
+		
+		/**
+		* Construct without alpha or s or v (which defaults to 1)
+		*/
+		public ColorHSV(float h)
+		{
+			_h = h;
+			_s = 0.8f;
+			_v = 1f;
+			_a = 1.0f;
+		}
 
 		/**
 		* Construct without alpha (which defaults to 1)
