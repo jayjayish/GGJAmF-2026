@@ -5,15 +5,5 @@ using UnityEngine.Serialization;
 public class EntityData : ScriptableObject
 {
     public int health;
-
-    public void takeDamage(int damage) 
-    {
-        health -= damage;
-    }
-
-    public void heal(int amount)
-    {
-        health += amount;
-    }
 }
 
