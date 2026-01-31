@@ -6,11 +6,14 @@ public class Entity : MonoBehaviour
     [SerializeField]
     protected EntityData data;
     
+    public int health { get; protected set; }
+
     public int ColorAngle;
 
     protected bool isDead;
 
     protected Collider2D hurtBox;
+    
 
     // Override in subclasses (e.g. Projectile) as needed.
     protected virtual bool ColliderIsTrigger => false;
@@ -41,7 +44,11 @@ public class Entity : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        
+        // Initialize runtime health from the data template.
+        if (health <= 0 && data != null)
+        {
+            health = data.health;
+        }
     }
 
     // Update is called once per frame
@@ -55,5 +62,39 @@ public class Entity : MonoBehaviour
     {
         ColorAngle += 10;
     }
+
+    public virtual void TakeDamage(int amount)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        if (amount <= 0)
+        {
+            return;
+        }
+
+        health = Mathf.Max(0, health - amount);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        isDead = true;
+        OnDeath();
+    }
+
+    // Override to add VFX, drops, despawn logic, etc.
+    protected virtual void OnDeath() { }
     
 }

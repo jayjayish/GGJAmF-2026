@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Character : Entity
+public class BasicMob : Entity
 {
-    [SerializeField] protected float movementSpeed = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -14,13 +13,4 @@ public class Character : Entity
     {
         base.Update();
     }
-
-    public void checkIsDead()
-    {
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
 }
