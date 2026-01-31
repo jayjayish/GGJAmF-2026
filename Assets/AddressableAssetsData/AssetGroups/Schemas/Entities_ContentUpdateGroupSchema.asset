@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf0005e1f9924bf9b3a423c698cffbcf, type: 3}
-  m_Name: so-projectileSettings
+  m_Script: {fileID: 11500000, guid: 5834b5087d578d24c926ce20cd31e6d6, type: 3}
+  m_Name: Entities_ContentUpdateGroupSchema
   m_EditorClassIdentifier: 
-  health: 1
-  projType: 254
-  tempMoveSpeed: 1
-  projPrefab: {fileID: 387692449361187123, guid: 4d8e172d95286ac4aa9dc08307b6a900, type: 3}
+  m_Group: {fileID: 11400000, guid: 9625607b1fd5ec24f8c7c697fbb5f4b0, type: 2}
+  m_StaticContent: 0

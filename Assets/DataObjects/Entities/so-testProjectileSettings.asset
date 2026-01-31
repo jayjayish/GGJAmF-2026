@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dea69d41f90c6ea4fa55c27c1d60c145, type: 3}
-  m_Name: AddressableAssetGroupSortSettings
+  m_Script: {fileID: 11500000, guid: bf0005e1f9924bf9b3a423c698cffbcf, type: 3}
+  m_Name: so-testProjectileSettings
   m_EditorClassIdentifier: 
-  sortOrder:
-  - 260bcf838104da74fb0c51b437b3972e
-  - 45f2ad0c68f05ed4aa65f9392724e70e
-  - 446d3ac4c69ccf3488ad13bdb3fa1974
+  health: 1
+  projType: 254
+  tempMoveSpeed: 1
+  projPrefab: {fileID: 387692449361187123, guid: 4d8e172d95286ac4aa9dc08307b6a900, type: 3}
