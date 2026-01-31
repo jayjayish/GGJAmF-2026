@@ -20,5 +20,12 @@ namespace Data
             Cyan,
             Purple
         }
+
+        public enum ProjectileTypes : byte
+        {
+            None,
+            Default,
+            TestCircle = 254,
+        }
     }
 }
