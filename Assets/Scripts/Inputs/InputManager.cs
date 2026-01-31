@@ -65,6 +65,7 @@ public static class InputManager
     
     public static void InvokeMove(InputAction.CallbackContext context)
     {
+        
         var direction = context.ReadValue<Vector2>();
         foreach(Action<Vector2> action in MoveActions)
         {
