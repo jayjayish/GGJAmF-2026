@@ -1,18 +1,16 @@
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Projectile : Entity
 {
-    protected EntityData data;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected virtual void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
-    protected virtual void Update()
+    protected override void Update()
     {
-        
+        base.Update();
     }
 }
