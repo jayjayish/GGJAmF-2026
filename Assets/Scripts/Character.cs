@@ -17,9 +17,9 @@ public class Character : Entity
         base.Update();
     }
 
-    public bool checkIsDead()
+    public void checkIsDead()
     {
-        if (health <= 0)
+        if (data.health <= 0)
         {
             isDead = true;
         }

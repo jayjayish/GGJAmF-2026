@@ -2,32 +2,32 @@ using UnityEngine;
 
 public class EntityData : ScriptableObject
 {
-    [SerializeField] protected int health;
-    [SerializeField] protected Color color;
+    [SerializeField] public int health;
+    [SerializeField] public Color color;
 
-    public getColor()
+    public Color getColor()
     {
         return color;
     }
-    protected setColor(Color color)
+    public void setColor(Color color)
     {
         this.color = color;
     }
-    public getHealth()
+    public int getHealth()
     {
         return health;
     }
-    public setHealth(int health)
+    public void setHealth(int health)
     {
         this.health = health;
     }
 
-    protected void takeDamage(int damage) 
+    public void takeDamage(int damage) 
     {
         health -= damage;
     }
 
-    protected void heal(int amount)
+    public void heal(int amount)
     {
         health += amount;
     }
