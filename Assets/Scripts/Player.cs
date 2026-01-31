@@ -18,6 +18,8 @@ public class Player : Character
         _instance = this;
         
         base.Awake();
+        // don't want player to be pushed
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
 

@@ -5,6 +5,6 @@ using UnityEngine.Serialization;
 public class EnemyData : EntityData
 {
     public int attackDamage;
-    public int knockBackForce; // determines how far the slime is knocked back when hit
+    public float knockBackForce; // determines how far the slime is knocked back when hit
 }
 
