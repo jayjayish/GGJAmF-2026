@@ -276,32 +276,24 @@ PrefabInstance:
       propertyPath: data
       value: 
       objectReference: {fileID: 11400000, guid: 172125498ec01fd4fa85aa232a978dda, type: 2}
+    - target: {fileID: 9197126354648365234, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+      propertyPath: mouseTransform
+      value: 
+      objectReference: {fileID: 1455870674}
+    - target: {fileID: 9197126354648365234, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1969115597}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
---- !u!1 &2102664763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1381919602965866695, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+--- !u!212 &1969115597 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6412064379765782937, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
   m_PrefabInstance: {fileID: 1969115596}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2102664768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102664763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6938f35def626384f939012578565626, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 172125498ec01fd4fa85aa232a978dda, type: 2}
-  spriteRenderer: {fileID: 0}
-  automaticSpriteColor: 0
-  playerDirection: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

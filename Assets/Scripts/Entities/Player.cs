@@ -1,4 +1,5 @@
 using System;
+using Entities;
 using UnityEngine;
 
 public class Player : Character
@@ -32,6 +33,7 @@ public class Player : Character
     protected override void Start()
     {
         InputManager.AddMoveAction(OnMove);
+        InputManager.AddAttackAction(Shoot);
     }
 
     // Update is called once per frame
@@ -48,6 +50,7 @@ public class Player : Character
 
     private void Shoot()
     {
+        ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
         //Debug.Log($"Mouse x: {vector.x}, Mouse y: {vector.y}");
     }
     
