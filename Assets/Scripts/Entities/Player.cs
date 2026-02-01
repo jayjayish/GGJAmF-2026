@@ -11,6 +11,9 @@ public class Player : Character
     [SerializeField] private PlayerColorPicker colorPicker;
     [SerializeField] private Vector2 playerDirection;
     [SerializeField] private int colorRotationRate = 1;
+    [SerializeField] private Animator animator;
+    private const string AttackingBool = "IsAttacking";
+    private const string ForwardBool = "IsForward";
 
     [SerializeField] private int iFrames = 20;
 
@@ -22,6 +25,8 @@ public class Player : Character
 
 
     private int _iFrameCount = 0;
+    private static readonly int IsForward = Animator.StringToHash(ForwardBool);
+    private static readonly int IsAttacking = Animator.StringToHash(AttackingBool);
 
     protected override void Awake()
     {
@@ -128,6 +133,7 @@ public class Player : Character
     private void MoveCharacter()
     {
         var moveVec = movementSpeed * Time.deltaTime * playerDirection;
+        animator.SetBool(IsForward, moveVec.y > 0.1f);
         transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
     }
 
@@ -197,6 +203,8 @@ public class Player : Character
         attack.moveDirection = projDirection;
         var angle = -Vector2.SignedAngle(projDirection, Vector2.right);
         attack.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        animator.SetTrigger(IsAttacking);
     }
 
     protected override void OnColorChange(int colorAngle)
