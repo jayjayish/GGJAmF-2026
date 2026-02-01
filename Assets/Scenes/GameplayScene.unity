@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 259453762}
   - component: {fileID: 259453761}
   - component: {fileID: 259453760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 296293877}
   - component: {fileID: 296293876}
   - component: {fileID: 296293875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +618,7 @@ GameObject:
   - component: {fileID: 1410093334}
   - component: {fileID: 1410093333}
   - component: {fileID: 1410093332}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,6 +899,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss1
       objectReference: {fileID: 0}
+    - target: {fileID: 5030653206350666717, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670918102632637292, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023203050231914126, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 7956128078010689424, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.1
@@ -944,6 +956,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+--- !u!1 &1557341809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5030653206350666717, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+  m_PrefabInstance: {fileID: 1557341808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1567050458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6180675146167709265, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
@@ -961,7 +978,7 @@ GameObject:
   - component: {fileID: 1721725527}
   - component: {fileID: 1721725526}
   - component: {fileID: 1721725525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,7 +1154,7 @@ PrefabInstance:
     - target: {fileID: 558411427144588635, guid: 51fd29fd7c711c548b70bc5fdc1057cb, type: 3}
       propertyPath: Boss
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1557341809}
     - target: {fileID: 558411427144588635, guid: 51fd29fd7c711c548b70bc5fdc1057cb, type: 3}
       propertyPath: PaletteMob
       value: 
@@ -1199,6 +1216,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 806009014640320034, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 860339919998359143, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938843649393134063, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3151874439730493696, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4313183877014432289, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.48
@@ -1239,9 +1272,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4384337405169538135, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4803723799968982528, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
       propertyPath: m_Name
       value: Palette
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803723799968982528, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054826358335327416, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829059358519398767, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629746903186128930, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

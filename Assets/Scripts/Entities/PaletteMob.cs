@@ -20,6 +20,9 @@ public class PaletteMob : BasicMob
     private float rotateRadius;
     [SerializeField]
     private float lerpCoefficent;
+    [SerializeField]
+    private ParticleSystem deathParticles;
+
 
     private Vector3 _targetPosition;
     
@@ -78,6 +81,7 @@ public class PaletteMob : BasicMob
     {
         if (_colorsEncountered.Count >= 6)
         {
+            deathParticles.Play();
             GameFlowManager.Instance.BossStart();
         }
     }
