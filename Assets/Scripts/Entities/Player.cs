@@ -24,6 +24,7 @@ public class Player : Character
     private bool _isLeft, _isRight, _isShoot, _canShoot, _showingPicker, _pickerTimer;
     private float _timeLastLeftRight, _timeLastShoot;
     private const float PickerFadeTimeout = 1f;
+    private const float SpriteScale = 0.75f;
     private bool isInvincible;
 
 
@@ -112,6 +113,35 @@ public class Player : Character
         MoveCharacter();
         Shoot();
         ManageColorPicker();
+        FaceDirection();
+    }
+
+    private void FaceDirection()
+    {
+        if (!_isShoot)
+        {
+            FaceDirectionOnVector(playerDirection);
+        }
+        else
+        {
+            var position = transform.position;
+            var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
+            FaceDirectionOnVector(projDirection);
+        }
+    }
+
+    private void FaceDirectionOnVector(Vector3 direction)
+    {
+        if (direction.x > 0f)
+        {
+            spriteRenderer.transform.localScale = SpriteScale * Vector3.one;
+        }
+        else if (direction.x < 0)
+        {
+            var newScale = SpriteScale * Vector3.one;
+            newScale.x *= -1;
+            spriteRenderer.transform.localScale = newScale;
+        }
     }
 
     private void ManageColorPicker()
