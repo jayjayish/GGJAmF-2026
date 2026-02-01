@@ -188,20 +188,20 @@ public class Player : Character
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Take contact damage from other Entities (e.g. mobs).
-        var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
-        if (otherMob != null && otherMob.getAttackDamage() > 0)
+        var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<EnemyBase>() : null;
+        if (otherMob != null && otherMob.GetAttackDamage() > 0)
         {
-            TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
+            TakeDamage(otherMob.GetAttackDamage(), otherMob.ColorAngle);
             return;
         }
     }    
 
     private void OnCollisionStay2D(Collision2D collision) {
         if (!isInvincible) {            
-            var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
-            if (otherMob != null && otherMob.getAttackDamage() > 0)
+            var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<EnemyBase>() : null;
+            if (otherMob != null && otherMob.GetAttackDamage() > 0)
             {
-                TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
+                TakeDamage(otherMob.GetAttackDamage(), otherMob.ColorAngle);
                 return;
             }
         }

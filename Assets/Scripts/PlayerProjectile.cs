@@ -49,7 +49,7 @@ public class PlayerProjectile : Projectile
             return;
         }
          
-        if (other.GetComponent<BasicMob>() != null) {            
+        if (other.GetComponent<EnemyBase>() != null) {            
             isDead = true;
         }
     }

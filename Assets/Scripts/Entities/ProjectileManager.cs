@@ -17,7 +17,7 @@ namespace Entities
         private static ObjectPool<Projectile> _objectPool;
         private static ProjectileContainer _cachedProjectileData;
         
-        private static List<Projectile> _playerProjectileList;
+        private static List<Projectile> _playerProjectileList = new();
 
 
         public static void Initialize(Action onSuccess = null)
