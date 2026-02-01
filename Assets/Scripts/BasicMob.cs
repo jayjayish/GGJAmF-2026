@@ -4,13 +4,17 @@ public class BasicMob : Character
 {
     private Player player;
 
-    private float knockBackForce =>
-        data is EnemyData enemyData ? enemyData.knockBackForce : 0f;
-    private float knockBackDuration =>
-        data is EnemyData enemyData ? enemyData.knockBackDuration : 0f;
+    private EnemyData enemyData =>
+        data is EnemyData d ? d : null;
 
     private bool isKnockedBack = false;
+    [SerializeField] protected float knockBackForce;
+    [SerializeField] protected float knockBackDuration;
     private int knockBackFrames = 0;
+
+    public int getAttackDamage() {
+        return enemyData.attackDamage;
+    }
 
     protected override void Awake()
     {
@@ -22,6 +26,15 @@ public class BasicMob : Character
     {
         base.Start();
         player = Player.Instance;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        isKnockedBack = false;
+        knockBackFrames = 0;
+        knockBackForce = enemyData.knockBackForce;
+        knockBackDuration = enemyData.knockBackDuration;
     }
 
     // Update is called once per frame
@@ -56,7 +69,7 @@ public class BasicMob : Character
         }
 
         var dir = toPlayer.normalized;
-        transform.position += new Vector3(dir.x, dir.y, 0f) * movementSpeed;
+        transform.position += new Vector3(dir.x, dir.y, 0f) * movementSpeed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -89,6 +102,6 @@ public class BasicMob : Character
         away.z = 0f;
 
         var dir = away.normalized;
-        transform.position += new Vector3(dir.x, dir.y, 0f) * knockBackForce;
+        transform.position += new Vector3(dir.x, dir.y, 0f) * knockBackForce * Time.deltaTime;
     }
 }

@@ -58,11 +58,12 @@ public class Entity : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        // Initialize runtime health from the data template.
-        if (health <= 0 && data != null)
-        {
-            health = data.health;
-        }
+    }
+
+    protected virtual void OnEnable() {
+        movementSpeed = data.movementSpeed;
+        health = data.health;
+
     }
 
     // Update is called once per frame
