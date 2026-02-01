@@ -1,3 +1,4 @@
+using System.Collections;
 using Colors;
 using NaughtyAttributes;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class Entity : MonoBehaviour
             _isDead = value;
             if (_isDead)
             {
-                OnDeath();
+                StartCoroutine(DelayedDeath());
             }
         }
     }
@@ -145,6 +146,12 @@ public class Entity : MonoBehaviour
     protected virtual void OnDeath()
     { 
         gameObject.SetActive(false);
+    }
+
+    protected IEnumerator DelayedDeath()
+    {
+        yield return null;
+        OnDeath();
     }
     
 }
