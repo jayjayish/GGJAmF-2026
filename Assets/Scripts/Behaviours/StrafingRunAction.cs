@@ -90,11 +90,11 @@ public partial class StrafingRunAction : Action
 
     private void Airstrike()
     {
-        var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, Target.Value.transform.position, Target.Value.GetComponent<Boss1>().ColorAngle);
+        var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Target.Value.transform.position, Target.Value.GetComponent<Boss1>().ColorAngle);
         ball1.moveDirection = Quaternion.Euler(0, 0, 90.0f) * direction;
         ball1.movementSpeed = 7;
 
-        var ball2 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, Target.Value.transform.position, Target.Value.GetComponent<Boss1>().ColorAngle);
+        var ball2 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Target.Value.transform.position, Target.Value.GetComponent<Boss1>().ColorAngle);
         ball2.moveDirection = Quaternion.Euler(0, 0, -90.0f) * direction;
         ball2.movementSpeed = 7;
     }

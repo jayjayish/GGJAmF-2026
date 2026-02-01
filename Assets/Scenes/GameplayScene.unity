@@ -738,6 +738,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 364046336384911901, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1557341809}
+    - target: {fileID: 364046336384911901, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: c2f9602d36dc4df4a9bb78803fdfcf65, type: 2}
     - target: {fileID: 4710703574171354635, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
       propertyPath: 'managedReferences[2168046755891380772]'
       value: 'Unity.Behavior Unity.Behavior.BlackboardVariable`1[[UnityEngine.GameObject,
@@ -895,6 +903,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+--- !u!50 &1557341809 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 3051896148936371734, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
+  m_PrefabInstance: {fileID: 1557341808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1721725523
 GameObject:
   m_ObjectHideFlags: 0
