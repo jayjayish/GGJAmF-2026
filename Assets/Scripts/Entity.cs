@@ -5,7 +5,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityData data;
-    public int health { get; protected set; }
+    public float health { get; protected set; }
 
     [SerializeField] protected float movementSpeed;
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -63,7 +63,7 @@ public class Entity : MonoBehaviour
     protected virtual void OnEnable() {
         movementSpeed = data.movementSpeed;
         health = data.health;
-
+        _colorAngle = data.colorAngle;
     }
 
     // Update is called once per frame
@@ -81,19 +81,25 @@ public class Entity : MonoBehaviour
         ColorAngle -= 10;
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount, int attackColorAngle)
     {
-        if (isDead)
+        if (isDead || amount <= 0)
         {
             return;
         }
 
-        if (amount <= 0)
-        {
-            return;
-        }
+        // Scale damage by color similarity.
+        var delta = Mathf.Abs(Mathf.DeltaAngle(ColorAngle, attackColorAngle)); // degrees in [0, 180]
+        // cosine scaling, no leniancy:
+        //var colorScaled = (-Mathf.Cos(delta * Mathf.Deg2Rad) + 1) / 2f;
 
-        health = Mathf.Max(0, health - amount);
+        // linear scaling with 10 degree leniancy:
+        float colorScaled = Mathf.Clamp01((delta - 10f) / 160f);
+
+
+        var scaledDamage = amount * colorScaled;
+        health = Mathf.Max(0, health - scaledDamage);
+        Debug.Log("health: " + health);
 
         if (health <= 0)
         {
@@ -113,6 +119,8 @@ public class Entity : MonoBehaviour
     }
 
     // Override to add VFX, drops, despawn logic, etc.
-    protected virtual void OnDeath() { }
+    protected virtual void OnDeath() { 
+        gameObject.SetActive(false);
+    }
     
 }

@@ -71,19 +71,13 @@ public class Projectile : Entity
             }
             
             // TODO: Decide how to handle projectile damage exchange
-            TakeDamage(otherProjectile.attackDamage);
+            TakeDamage(otherProjectile.attackDamage, otherProjectile.ColorAngle);
         }
 
         if (other.GetComponent<Character>() != null) {
             isDead = true;
         }
 
-    }
-
-    public void SetData()
-    {
-        movementSpeed = data.movementSpeed;
-        health = data.health;
     }
     
 }

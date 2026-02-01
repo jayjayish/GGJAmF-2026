@@ -6,8 +6,10 @@ public class Player : Character
 {
     private static Player _instance;
     public static Player Instance => _instance;
-
     public PlayerData PlayerEntityDaya => (PlayerData)data;
+
+    [SerializeField] private PlayerColorPicker colorPicker;
+    [SerializeField] private Vector2 playerDirection;
 
     protected override void Awake()
     {
@@ -31,12 +33,25 @@ public class Player : Character
         _instance = null;
     }
     
-    [SerializeField] private Vector2 playerDirection;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         InputManager.AddMoveAction(OnMove);
         InputManager.AddAttackAction(Shoot);
+        InputManager.AddLeftDownAction(OnLeft);
+        InputManager.AddRightDownAction(OnRight);
+        
+        ReticleMouseFollower.Instance.gameObject.SetActive(true);
+    }
+
+    private void OnRight()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnLeft()
+    {
+        throw new NotImplementedException();
     }
 
     // Update is called once per frame
@@ -50,32 +65,50 @@ public class Player : Character
     {
         // Take contact damage from other Entities (e.g. mobs).
         var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
-        if (otherMob == null || otherMob == this)
+        if (otherMob != null && otherMob.getAttackDamage() > 0)
         {
+            TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
             return;
         }
 
-        // For now, only EnemyData carries contact damage.
-        if (otherMob.getAttackDamage() > 0)
+        var projectile = collision.collider != null ? collision.collider.GetComponentInParent<Projectile>() : null;
+        if (projectile != null && !projectile.isPlayer)
         {
-            TakeDamage(otherMob.getAttackDamage());
-            Debug.Log("health: " + health);
+            TakeDamage(projectile.attackDamage, projectile.ColorAngle);
+            return;
         }
+
     }
 
     private void OnMove(Vector2 vector)
     {
         playerDirection = vector.normalized;
     }
+    
+    public override void TakeDamage(int amount, int attackColorAngle)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        if (amount <= 0)
+        {
+            return;
+        }
+        // Player does not take scaled damage
+        health = Mathf.Max(0, health - amount);
+        Debug.Log(" Player health: " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
 
     private void Shoot()
     {
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
-        attack.moveDirection = (InputManager.GetMousePosition() - transform.position).normalized;
-    }
-    
-    private Vector2 _toRelativePos(Vector2 vector)
-    {
-        return (Vector2)transform.position - vector;
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position, ColorAngle);
+        attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
     }
 }

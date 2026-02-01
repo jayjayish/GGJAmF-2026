@@ -16,13 +16,16 @@ public static class InputManager
     private const string RightRotateKey = "RightRotate";
     private const string AimKey = "Aim";
     
-    private static List<Action<Vector2>> MoveActions = new ();
-    private static List<Action<Vector2>> AimActions = new ();
-    private static List<Action> AttackActions = new ();
-    private static List<Action> LeftRotateActions = new ();
-    private static List<Action> RightRotateActions = new ();
+    private static List<Action<Vector2>> _moveActions = new ();
+    private static List<Action<Vector2>> _aimActions = new ();
+    private static List<Action> _attackActions = new ();
+    private static List<Action> _leftRotateDownActions = new ();
+    private static List<Action> _rightRotateDownActions = new ();
+    private static List<Action> _leftRotateUpActions = new ();
+    private static List<Action> _rightRotateUpActions = new ();
 
-    private static Vector3 _mousePosition;
+    private static Vector3 _mouseWorldPosition;
+    private static Vector2 _mouseScreenPosition;
 
     public enum ActionEnum : byte
     {
@@ -55,27 +58,29 @@ public static class InputManager
         _actionAsset.FindAction(AimKey).performed += InvokeAim;
         _actionAsset.FindAction(AimKey).canceled += InvokeAim;
         _actionAsset.FindAction(AttackKey).started += InvokeAttack;
-        _actionAsset.FindAction(LeftRotateKey).started += InvokeLeft;
-        _actionAsset.FindAction(RightRotateKey).started += InvokeRight;
+        _actionAsset.FindAction(LeftRotateKey).started += InvokeLeftDown;
+        _actionAsset.FindAction(RightRotateKey).started += InvokeRightDown;
+        _actionAsset.FindAction(LeftRotateKey).canceled += InvokeLeftUp;
+        _actionAsset.FindAction(RightRotateKey).canceled += InvokeRightUp;
         
         AddAimAction(OnMouseMove);
     }
 
     public static void AddMoveAction(Action<Vector2> callback)
     {
-        MoveActions.Add(callback);
+        _moveActions.Add(callback);
     }
     
     public static void RemoveMoveAction(Action<Vector2> callback)
     {
-        MoveActions.Remove(callback);
+        _moveActions.Remove(callback);
     }
     
     public static void InvokeMove(InputAction.CallbackContext context)
     {
-        
+        CalculateMouseWorldPosition();
         var direction = context.ReadValue<Vector2>();
-        foreach(Action<Vector2> action in MoveActions)
+        foreach(Action<Vector2> action in _moveActions)
         {
             action.Invoke(direction);
         }
@@ -83,19 +88,19 @@ public static class InputManager
     
     public static void AddAimAction(Action<Vector2> callback)
     {
-        AimActions.Add(callback);
+        _aimActions.Add(callback);
     }
     
     public static void RemoveAimAction(Action<Vector2> callback)
     {
-        AimActions.Remove(callback);
+        _aimActions.Remove(callback);
     }
     
     public static void InvokeAim(InputAction.CallbackContext context)
     {
         
         var direction = context.ReadValue<Vector2>();
-        foreach(Action<Vector2> action in AimActions)
+        foreach(Action<Vector2> action in _aimActions)
         {
             action.Invoke(direction);
         }
@@ -103,53 +108,89 @@ public static class InputManager
     
     public static void AddAttackAction(Action callback)
     {
-        AttackActions.Add(callback);
+        _attackActions.Add(callback);
     }
     
     public static void RemoveAttackAction(Action callback)
     {
-        AttackActions.Remove(callback);
+        _attackActions.Remove(callback);
     }
     
     public static void InvokeAttack(InputAction.CallbackContext context)
     {
-        foreach(Action action in AttackActions)
+        foreach(Action action in _attackActions)
         {
             action.Invoke();
         }
     }
     
-    public static void AddLeftAction(Action callback)
+    public static void AddLeftDownAction(Action callback)
     {
-        LeftRotateActions.Add(callback);
+        _leftRotateDownActions.Add(callback);
     }
     
-    public static void RemoveLeftAction(Action callback)
+    public static void RemoveLeftDownAction(Action callback)
     {
-        LeftRotateActions.Remove(callback);
+        _leftRotateDownActions.Remove(callback);
     }
     
-    public static void InvokeLeft(InputAction.CallbackContext context)
+    public static void InvokeLeftDown(InputAction.CallbackContext context)
     {
-        foreach(Action action in LeftRotateActions)
+        foreach(Action action in _leftRotateDownActions)
         {
             action.Invoke();
         }
     }
     
-    public static void AddRightAction(Action callback)
+    public static void AddRightDownAction(Action callback)
     {
-        RightRotateActions.Add(callback);
+        _rightRotateDownActions.Add(callback);
     }
     
-    public static void RemoveRightAction(Action callback)
+    public static void RemoveRightDownAction(Action callback)
     {
-        RightRotateActions.Remove(callback);
+        _rightRotateDownActions.Remove(callback);
     }
     
-    public static void InvokeRight(InputAction.CallbackContext context)
+    public static void InvokeRightDown(InputAction.CallbackContext context)
     {
-        foreach(Action action in RightRotateActions)
+        foreach(Action action in _rightRotateDownActions)
+        {
+            action.Invoke();
+        }
+    }
+    
+    public static void AddLeftUpAction(Action callback)
+    {
+        _leftRotateUpActions.Add(callback);
+    }
+    
+    public static void RemoveLeftUpAction(Action callback)
+    {
+        _leftRotateUpActions.Remove(callback);
+    }
+    
+    public static void InvokeLeftUp(InputAction.CallbackContext context)
+    {
+        foreach(Action action in _leftRotateUpActions)
+        {
+            action.Invoke();
+        }
+    }
+    
+    public static void AddRightUpAction(Action callback)
+    {
+        _rightRotateUpActions.Add(callback);
+    }
+    
+    public static void RemoveRightUpAction(Action callback)
+    {
+        _rightRotateUpActions.Remove(callback);
+    }
+    
+    public static void InvokeRightUp(InputAction.CallbackContext context)
+    {
+        foreach(Action action in _rightRotateUpActions)
         {
             action.Invoke();
         }
@@ -161,12 +202,18 @@ public static class InputManager
         {
             return;
         }
-        _mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
-        Debug.Log($"{_mousePosition}");
+
+        _mouseScreenPosition = mousePos;
+        CalculateMouseWorldPosition();
     }
 
-    public static Vector3 GetMousePosition()
+    public static Vector3 GetMouseWorldPosition()
     {
-        return _mousePosition;
+        return _mouseWorldPosition;
+    }
+
+    public static void CalculateMouseWorldPosition()
+    {
+        _mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(_mouseScreenPosition.x, _mouseScreenPosition.y, -Camera.main.transform.position.z));
     }
 }
