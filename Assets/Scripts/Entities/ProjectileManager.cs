@@ -34,7 +34,7 @@ namespace Entities
             };
         }
 
-        public static Projectile SpawnProjectile(GlobalTypes.ProjectileTypes type, Vector2 position)
+        public static Projectile SpawnProjectile(GlobalTypes.ProjectileTypes type, Vector2 position, int colorAngle)
         {
             if (!_dictionaryPool.ContainsKey(type))
             {
@@ -43,6 +43,7 @@ namespace Entities
 
             Projectile proj = _dictionaryPool[type].Get();
             proj.transform.position = position;
+            proj.ColorAngle = colorAngle;
 
             return proj;
         }

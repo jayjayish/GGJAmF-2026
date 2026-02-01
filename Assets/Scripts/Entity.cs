@@ -63,7 +63,7 @@ public class Entity : MonoBehaviour
     protected virtual void OnEnable() {
         movementSpeed = data.movementSpeed;
         health = data.health;
-
+        _colorAngle = data.colorAngle;
     }
 
     // Update is called once per frame
@@ -83,22 +83,19 @@ public class Entity : MonoBehaviour
 
     public virtual void TakeDamage(int amount, int attackColorAngle)
     {
-        if (isDead)
+        if (isDead || amount <= 0)
         {
             return;
         }
 
         // Scale damage by color similarity.
-        // colorScaled = cos( abs(deltaColorAngle) / 2 )
-        // Use shortest angle difference so 350° vs 10° is treated as 20°.
         var delta = Mathf.Abs(Mathf.DeltaAngle(ColorAngle, attackColorAngle)); // degrees in [0, 180]
-        var colorScaled = Mathf.Cos((delta * Mathf.Deg2Rad) / 2f);
-        colorScaled = Mathf.Clamp01(colorScaled);
+        // cosine scaling, no leniancy:
+        //var colorScaled = (-Mathf.Cos(delta * Mathf.Deg2Rad) + 1) / 2f;
 
-        if (amount <= 0)
-        {
-            return;
-        }
+        // linear scaling with 10 degree leniancy:
+        float colorScaled = Mathf.Clamp01((delta - 10f) / 160f);
+
 
         var scaledDamage = amount * colorScaled;
         health = Mathf.Max(0, health - scaledDamage);

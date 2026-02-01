@@ -83,10 +83,31 @@ public class Player : Character
     {
         playerDirection = vector.normalized;
     }
+    
+    public override void TakeDamage(int amount, int attackColorAngle)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        if (amount <= 0)
+        {
+            return;
+        }
+        // Player does not take scaled damage
+        health = Mathf.Max(0, health - amount);
+        Debug.Log(" Player health: " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
 
     private void Shoot()
     {
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position, ColorAngle);
         attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
     }
 }

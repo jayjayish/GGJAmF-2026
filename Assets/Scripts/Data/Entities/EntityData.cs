@@ -6,5 +6,6 @@ public class EntityData : ScriptableObject
 {
     public int health;
     public float movementSpeed;
+    public int colorAngle;  // between 0-360 degrees representing color on wheel
 }
 

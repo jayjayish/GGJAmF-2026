@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b879b85e156d5764b8648c7c487f653f, type: 3}
   m_Name: so-slimeData
   m_EditorClassIdentifier: 
-  health: 10
+  health: 3
   movementSpeed: 3
+  colorAngle: 10
   attackDamage: 1
   knockBackForce: 5
   knockBackDuration: 40

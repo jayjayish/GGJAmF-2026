@@ -16,7 +16,6 @@ public class AimController : MonoBehaviour
 
     void UpdateMousePos(Vector2 vec)
     {
-        Debug.Log($"Mouse x: {vec.x}, Mouse y: {vec.y}");
         pos = Camera.main.ScreenToWorldPoint(new Vector3(vec.x, vec.y, -Camera.main.transform.position.z));
         transform.position = pos;
     }
