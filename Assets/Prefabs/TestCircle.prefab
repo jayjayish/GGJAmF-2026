@@ -102,12 +102,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: fa1f9b7873b622e42a1802cc493f93a1, type: 2}
+  movementSpeed: 0
   spriteRenderer: {fileID: 7766079305531899001}
   automaticSpriteColor: 1
   hitBox: {fileID: 7370501326199152931}
-  isPlayer: 0
+  isPlayer: 1
   size: 1
   attackDamage: 1
+  moveDirection: {x: 0, y: 0}
 --- !u!61 &7370501326199152931
 BoxCollider2D:
   m_ObjectHideFlags: 0
