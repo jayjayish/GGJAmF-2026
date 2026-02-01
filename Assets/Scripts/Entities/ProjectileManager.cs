@@ -16,6 +16,8 @@ namespace Entities
         private static Dictionary<GlobalTypes.ProjectileTypes, ObjectPool<Projectile>> _dictionaryPool = new ();
         private static ObjectPool<Projectile> _objectPool;
         private static ProjectileContainer _cachedProjectileData;
+        
+        private static List<Projectile> _playerProjectileList;
 
 
         public static void Initialize(Action onSuccess = null)
@@ -45,8 +47,8 @@ namespace Entities
             Projectile proj = _dictionaryPool[type].Get();
             proj.transform.position = position;
             proj.ColorAngle = colorAngle;
-
-            var colorVariants = GetProjectileData(type).spriteColorVariants;
+            var projData = GetProjectileData(type);
+            var colorVariants = projData.spriteColorVariants;
             if (colorVariants.Count > 0)
             {
                 GlobalTypes.Color colorType = ColorHSV.GetClosest(colorAngle);
@@ -58,7 +60,24 @@ namespace Entities
                 proj.automaticSpriteColor = true;
             }
 
+            if (type == GlobalTypes.ProjectileTypes.PlayerMain)
+            {
+                _playerProjectileList.Add(proj);
+            }
+            
+            proj.SetData(projData);
+
             return proj;
+        }
+        
+        public static void ReturnProjectile(GlobalTypes.ProjectileTypes type, Projectile proj)
+        {
+            if (type == GlobalTypes.ProjectileTypes.PlayerMain)
+            {
+                _playerProjectileList.Remove(proj);
+            }
+            
+            _dictionaryPool[type].Release(proj);
         }
 
         private static void WarmPool(GlobalTypes.ProjectileTypes type)
@@ -83,17 +102,25 @@ namespace Entities
         private static void OnGetProj(Projectile proj)
         {
             proj.gameObject.SetActive(true);
+            
         }
 
         private static Projectile OnCreateProj(ProjectileData data, Transform parent)
         {
             var obj = Object.Instantiate(data.projPrefab,  parent);
-            return  obj.GetComponent<Projectile>();
+            var proj = obj.GetComponent<Projectile>();
+            proj.SetData(data);
+            return  proj;
         }
 
         public static ProjectileData GetProjectileData(GlobalTypes.ProjectileTypes type)
         {
             return _cachedProjectileData.projectileContainer[type];
+        }
+
+        public static List<Projectile> GetPlayerProjectiles()
+        {
+            return _playerProjectileList;
         }
     }
 }
