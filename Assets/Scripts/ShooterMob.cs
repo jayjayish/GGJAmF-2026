@@ -6,6 +6,7 @@ public class ShooterMob : BasicMob
 {
     [SerializeField] private float shootIntervalSeconds = 1.0f;
     [SerializeField] private float shootRange = 25f;
+    [SerializeField] private GlobalTypes.ProjectileTypes projectile = GlobalTypes.ProjectileTypes.EnemyBasic;
 
     private float shootTimer;
 
@@ -62,7 +63,7 @@ public class ShooterMob : BasicMob
         }
 
         var proj = ProjectileManager.SpawnProjectile(
-            GlobalTypes.ProjectileTypes.EnemyBasic,
+            projectile,
             transform.position,
             ColorAngle
         );
