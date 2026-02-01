@@ -17,3 +17,17 @@ MonoBehaviour:
   colorAngle: 0
   projType: 254
   projPrefab: {fileID: 6789042917775674078, guid: a7e6ba99a01bc77499a8161cde3cde0f, type: 3}
+  spriteColorVariants:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 856675794336176711, guid: 6b930b2bbbfcc3141878e90b2dc6fb80, type: 3}
+    - Key: 1
+      Value: {fileID: 5083191975340322759, guid: 6e98b6a8cce21c6489fd55e0b871f74f, type: 3}
+    - Key: 2
+      Value: {fileID: 4566220462416436629, guid: 0a2bde02617db534691b32b9a81af7c2, type: 3}
+    - Key: 3
+      Value: {fileID: -8882488737505666142, guid: 8aad31aac4db3c04aa19a3e271af2b07, type: 3}
+    - Key: 4
+      Value: {fileID: -3974604473434289602, guid: 4938d5110e800f742b1f999c6a182a72, type: 3}
+    - Key: 5
+      Value: {fileID: 2245602455221659304, guid: f2d24431cbac75847b6f7c4bf1d534ad, type: 3}

@@ -191,8 +191,12 @@ public class Player : Character
 
     private void Shoot()
     {
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.PlayerMain, transform.position, ColorAngle);
-        attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
+        var position = transform.position;
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
+        var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
+        attack.moveDirection = projDirection;
+        var angle = -Vector2.SignedAngle(projDirection, Vector2.right);
+        attack.transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     protected override void OnColorChange(int colorAngle)
