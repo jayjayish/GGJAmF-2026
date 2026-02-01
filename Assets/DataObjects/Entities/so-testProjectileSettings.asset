@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: so-testProjectileSettings
   m_EditorClassIdentifier: 
   health: 1
+  movementSpeed: 100
   projType: 254
-  tempMoveSpeed: 1
   projPrefab: {fileID: 387692449361187123, guid: 4d8e172d95286ac4aa9dc08307b6a900, type: 3}
