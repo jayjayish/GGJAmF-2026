@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using Utility;
 
 public class Projectile : Entity
 {
@@ -9,7 +10,7 @@ public class Projectile : Entity
     [SerializeField] public bool isPlayer;
     [SerializeField] public float size = 1f;
     [SerializeField] public int attackDamage = 1;
-    public Vector2 mouseDirectionNormalized = new Vector2(0.0f, 0.0f);
+    public Vector2 moveDirection;
 
     protected override bool ColliderIsTrigger => true;
 
@@ -35,7 +36,7 @@ public class Projectile : Entity
     protected override void Update()
     {
         base.Update();
-        transform.position = new Vector3(transform.position.x + (mouseDirectionNormalized.x * movementSpeed), (transform.position.y + (mouseDirectionNormalized.y * movementSpeed)), transform.position.z);
+        transform.position += Time.deltaTime * movementSpeed * new Vector3(moveDirection.x, moveDirection.y, 0f) ;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -85,4 +86,5 @@ public class Projectile : Entity
         movementSpeed = data.movementSpeed;
         health = data.health;
     }
+    
 }

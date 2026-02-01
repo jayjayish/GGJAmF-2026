@@ -32,7 +32,6 @@ public class Player : Character
     }
     
     [SerializeField] private Vector2 playerDirection;
-    public Transform mouseTransform;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
@@ -55,7 +54,7 @@ public class Player : Character
     private void Shoot()
     {
         var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
-        attack.mouseDirectionNormalized = (mouseTransform.position- transform.position).normalized;
+        attack.moveDirection = (InputManager.GetMousePosition() - transform.position).normalized;
     }
     
     private Vector2 _toRelativePos(Vector2 vector)

@@ -18,7 +18,6 @@ public class AimController : MonoBehaviour
     {
         Debug.Log($"Mouse x: {vec.x}, Mouse y: {vec.y}");
         pos = Camera.main.ScreenToWorldPoint(new Vector3(vec.x, vec.y, -Camera.main.transform.position.z));
-        
         transform.position = pos;
     }
 }

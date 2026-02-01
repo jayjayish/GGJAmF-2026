@@ -22,6 +22,8 @@ public static class InputManager
     private static List<Action> LeftRotateActions = new ();
     private static List<Action> RightRotateActions = new ();
 
+    private static Vector3 _mousePosition;
+
     public enum ActionEnum : byte
     {
         Attack,
@@ -55,6 +57,8 @@ public static class InputManager
         _actionAsset.FindAction(AttackKey).started += InvokeAttack;
         _actionAsset.FindAction(LeftRotateKey).started += InvokeLeft;
         _actionAsset.FindAction(RightRotateKey).started += InvokeRight;
+        
+        AddAimAction(OnMouseMove);
     }
 
     public static void AddMoveAction(Action<Vector2> callback)
@@ -149,5 +153,19 @@ public static class InputManager
         {
             action.Invoke();
         }
+    }
+
+    public static void OnMouseMove(Vector2 mousePos)
+    {
+        if (Camera.main == null)
+        {
+            return;
+        }
+        _mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+    }
+
+    public static Vector3 GetMousePosition()
+    {
+        return _mousePosition;
     }
 }
