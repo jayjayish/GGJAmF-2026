@@ -14,8 +14,8 @@ namespace Entities
 {
     public static class EnemyManager
     {
-        private static Dictionary<GlobalTypes.EnemyTypes, ObjectPool<EnemyBase>> _dictionaryPool = new ();
-        private static ObjectPool<EnemyBase> _objectPool;
+        private static Dictionary<GlobalTypes.EnemyTypes, ObjectPool<BasicMob>> _dictionaryPool = new ();
+        private static ObjectPool<BasicMob> _objectPool;
         private static EnemyContainer _cachedEnemyData;
 
 
@@ -36,14 +36,14 @@ namespace Entities
             };
         }
 
-        public static EnemyBase SpawnEnemy(GlobalTypes.EnemyTypes type, Vector2 position, int colorAngle)
+        public static BasicMob SpawnEnemy(GlobalTypes.EnemyTypes type, Vector2 position, int colorAngle)
         {
             if (!_dictionaryPool.ContainsKey(type))
             {
                 WarmPool(type);
             }
 
-            EnemyBase spawnEnemy = _dictionaryPool[type].Get();
+            BasicMob spawnEnemy = _dictionaryPool[type].Get();
             spawnEnemy.transform.position = position;
             spawnEnemy.ColorAngle = colorAngle;
 
@@ -60,11 +60,11 @@ namespace Entities
                 Debug.LogError($"Enemy {type.ToString()} couldn't be loaded");
             }
             var poolParent = new GameObject($"{type.ToString()}_Pool");
-            var newPool = new ObjectPool<EnemyBase>(() => OnCreateProj(projData, poolParent.transform), OnGetProj, OnReleaseProj);
+            var newPool = new ObjectPool<BasicMob>(() => OnCreateProj(projData, poolParent.transform), OnGetProj, OnReleaseProj);
             _dictionaryPool.Add(type, newPool);
         }
 
-        private static void OnReleaseProj(EnemyBase proj)
+        private static void OnReleaseProj(BasicMob proj)
         {
             proj.transform.position = Vector3.zero;
             proj.transform.rotation = Quaternion.identity;
@@ -72,15 +72,15 @@ namespace Entities
             proj.gameObject.SetActive(false);
         }
 
-        private static void OnGetProj(EnemyBase proj)
+        private static void OnGetProj(BasicMob proj)
         {
             proj.gameObject.SetActive(true);
         }
 
-        private static EnemyBase OnCreateProj(EnemyData data, Transform parent)
+        private static BasicMob OnCreateProj(EnemyData data, Transform parent)
         {
             var obj = Object.Instantiate(data.projPrefab,  parent);
-            return  obj.GetComponent<EnemyBase>();
+            return  obj.GetComponent<BasicMob>();
         }
 
         public static EnemyData GetEnemyData(GlobalTypes.EnemyTypes type)

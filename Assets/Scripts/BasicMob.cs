@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBase : Character
+public class BasicMob : Character
 {
     private Player player;
 

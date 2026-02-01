@@ -2,7 +2,7 @@ using UnityEngine;
 using Data;
 using Entities;
 
-public class ShooterMob : EnemyBase
+public class ShooterMob : BasicMob
 {
     [SerializeField] private float shootIntervalSeconds = 1.0f;
     [SerializeField] private float shootRange = 25f;

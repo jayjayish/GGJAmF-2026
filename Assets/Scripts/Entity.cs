@@ -17,8 +17,26 @@ public class Entity : MonoBehaviour
             HealthChanged(Health);
         }
     }
-    
-    protected bool isDead;
+
+    protected bool _isDead;
+
+    protected bool isDead
+    {
+        get => _isDead;
+        set
+        {
+            if (value == _isDead)
+            {
+                return;
+            }
+
+            _isDead = value 
+            if (_isDead)
+            {
+                OnDeath();
+            }
+        }
+    }
 
     public float movementSpeed {get; set;}
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -113,14 +131,6 @@ public class Entity : MonoBehaviour
 
         var scaledDamage = amount * colorScaled;
         Health = Mathf.Max(0, Health - scaledDamage);
-    }    
-
-    public void checkIsDead()
-    {
-        if (isDead)
-        {
-            OnDeath();
-        }
     }
 
     protected virtual void Die()
@@ -131,7 +141,6 @@ public class Entity : MonoBehaviour
         }
 
         isDead = true;
-        OnDeath();
     }
 
     // Override to add VFX, drops, despawn logic, etc.
