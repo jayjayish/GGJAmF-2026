@@ -98,8 +98,8 @@ public class Entity : MonoBehaviour
         // cosine scaling, no leniancy:
         //var colorScaled = (-Mathf.Cos(delta * Mathf.Deg2Rad) + 1) / 2f;
 
-        // linear scaling with 10 degree leniancy:
-        float colorScaled = Mathf.Clamp01((delta - 10f) / 160f);
+        // linear scaling with 15 degree leniancy:
+        float colorScaled = Mathf.Clamp01((delta - 15f) / 150f);
 
 
         var scaledDamage = amount * colorScaled;
