@@ -19,13 +19,18 @@ public class Entity : MonoBehaviour
         set
         {
             _colorAngle = value % 360;
-            if (automaticSpriteColor && spriteRenderer)
-            {
-                spriteRenderer.color = new ColorHSV(_colorAngle).ToColor();
-            }
+            OnColorChange(_colorAngle);
         }
     }
-    
+
+    protected virtual void OnColorChange(int colorAngle)
+    {
+        if (automaticSpriteColor && spriteRenderer)
+        {
+            spriteRenderer.color = new ColorHSV(colorAngle).ToColor();
+        }
+    }
+
     protected bool isDead;
     protected Collider2D hurtBox;
     
