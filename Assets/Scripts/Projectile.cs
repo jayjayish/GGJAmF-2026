@@ -1,6 +1,7 @@
 using Data;
 using Data.Entities;
 using DG.Tweening;
+using Entities;
 using UnityEngine;
 using Utility;
 
@@ -14,6 +15,8 @@ public class Projectile : Entity
     [SerializeField] public int attackDamage = 1;
     public Vector2 moveDirection;
 
+    private GlobalTypes.ProjectileTypes _type;
+    
     protected override bool ColliderIsTrigger => true;
 
     protected override void Awake()
@@ -27,13 +30,6 @@ public class Projectile : Entity
         }
         isPlayer = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
-
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    protected override void Start()
-    {
-        base.Start();
     }
 
     // Update is called once per frame
@@ -90,10 +86,24 @@ public class Projectile : Entity
             isDead = true;
         }
     }
+    
+    // Override to add VFX, drops, despawn logic, etc.
+    protected override void OnDeath()
+    {
+        ProjectileManager.ReturnProjectile(_type, this);
+    }
+    
 
     public void SetSpriteThroughDict(Sprite sprite)
     {
         spriteRenderer.color = Color.white;
         spriteRenderer.sprite = sprite;
+    }
+    
+    public void SetData(ProjectileData projData)
+    {
+        _type = projData.projType;
+        health = projData.health;
+        movementSpeed = projData.movementSpeed;
     }
 }

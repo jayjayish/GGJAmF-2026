@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Entities
   m_GUID: 260bcf838104da74fb0c51b437b3972e
   m_SerializeEntries:
+  - m_GUID: 4902a00f8a5c43e479695f4f1bee309c
+    m_Address: so-enemyContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa1f9b7873b622e42a1802cc493f93a1
     m_Address: Assets/DataObjects/Entities/so-testProjectileSettings.asset
     m_ReadOnly: 0
