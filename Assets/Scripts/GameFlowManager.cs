@@ -16,6 +16,7 @@ public class GameFlowManager : MonoBehaviour
     private int _textToDisplay = 0;
     private bool _movementInputReceived = false;
     private bool _attackInputReceived = false;
+    private bool _mouseButtonInputReceived = false;
 
     public List<string> tutorialTexts = new List<string>
     {
@@ -31,6 +32,7 @@ public class GameFlowManager : MonoBehaviour
         _textDisplayTime = 0f;
         _movementInputReceived = false;
         _attackInputReceived = false;
+        _mouseButtonInputReceived = false;
 
         // Clear initially; Update() will set the first line.
         TutorialText.text = "";
@@ -42,12 +44,16 @@ public class GameFlowManager : MonoBehaviour
     {
         InputManager.AddMoveAction(OnMoveInput);
         InputManager.AddAttackDownAction(OnAttackDown);
+        InputManager.AddLeftDownAction(OnMouseButtonDown);
+        InputManager.AddRightDownAction(OnMouseButtonDown);
     }
 
     private void OnDisable()
     {
         InputManager.RemoveMoveAction(OnMoveInput);
         InputManager.RemoveAttackDownAction(OnAttackDown);
+        InputManager.RemoveLeftDownAction(OnMouseButtonDown);
+        InputManager.RemoveRightDownAction(OnMouseButtonDown);
     }
 
     private void Update()
@@ -76,6 +82,10 @@ public class GameFlowManager : MonoBehaviour
                 {
                     _attackInputReceived = false;
                 }
+                else if (_textToDisplay == 2)
+                {
+                    _mouseButtonInputReceived = false;
+                }
             }
 
             _textDisplayTime += Time.deltaTime;
@@ -96,6 +106,14 @@ public class GameFlowManager : MonoBehaviour
                     return;
                 }
             }
+            // Special case: third text stays until left or right mouse pressed AND minimum time passes.
+            else if (_textToDisplay == 2)
+            {
+                if (_textDisplayTime < _minTextDisplayTime || !_mouseButtonInputReceived)
+                {
+                    return;
+                }
+            }
             else
             {
                 if (_textDisplayTime < _minTextDisplayTime)
@@ -111,6 +129,7 @@ public class GameFlowManager : MonoBehaviour
             {
                 _showingText = false;
                 TutorialText.text = "";
+                TextCanvas.SetActive(false);
                 // Go to next thing
                 // BossStart();
             }
@@ -128,6 +147,12 @@ public class GameFlowManager : MonoBehaviour
     private void OnAttackDown()
     {
         _attackInputReceived = true;
+    }
+
+
+    private void OnMouseButtonDown()
+    {
+        _mouseButtonInputReceived = true;
     }
 
 

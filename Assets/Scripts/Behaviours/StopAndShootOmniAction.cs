@@ -15,7 +15,7 @@ public partial class StopAndShootOmniAction : Action
     {
         for (int i = 0 ; i < 10; i++)
         {
-            var ball = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, Agent.Value.transform.position, 0);
+            var ball = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, 0);
             ball.moveDirection = Quaternion.Euler(0, 0, 36.0f * i) * new Vector2(0, 1);
             ball.movementSpeed = 10;
         }

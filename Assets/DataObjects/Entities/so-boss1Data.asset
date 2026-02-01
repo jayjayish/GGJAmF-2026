@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b879b85e156d5764b8648c7c487f653f, type: 3}
+  m_Name: so-boss1Data
+  m_EditorClassIdentifier: 
+  health: 100
+  movementSpeed: 5
+  colorAngle: 0
+  attackDamage: 1
+  knockBackForce: 0
+  knockBackDuration: 0
+  projPrefab: {fileID: 5030653206350666717, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}

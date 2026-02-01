@@ -139,10 +139,11 @@ MonoBehaviour:
   automaticSpriteColor: 1
   hitBox: {fileID: 4333818370666108305}
   rb: {fileID: 5935924354689553699}
-  isPlayer: 0
+  isPlayer: 1
   attackDamage: 1
   moveDirection: {x: 0, y: 0}
   sizeScaling: 1.2
+  maxSizeScale: 5
 --- !u!61 &4333818370666108305
 BoxCollider2D:
   m_ObjectHideFlags: 0
