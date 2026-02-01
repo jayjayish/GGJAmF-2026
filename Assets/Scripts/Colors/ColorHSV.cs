@@ -1,4 +1,5 @@
 ﻿using System;
+using Data;
 using UnityEngine;
 
 namespace Colors
@@ -20,7 +21,8 @@ namespace Colors
 		*/
 		public ColorHSV(float h)
 		{
-			SetAllVariables(h, 0.8f, 1f, 1f);
+			var v = (Mathf.Cos(h * Mathf.Deg2Rad * 3f) - 1f) * 0.1f + 1f;
+			SetAllVariables(h, 1f, v, 1f);
 		}
 
 		public ColorHSV(float h, float s, float v, float a)
@@ -184,6 +186,20 @@ namespace Colors
 		{
 			ColorHSV hsv = new (UnityEngine.Random.Range(0.0f, 360.0f), saturation, 1.0f);
 			return hsv.ToColor();
+		}
+
+		public static GlobalTypes.Color GetClosest(float hue)
+		{
+			if (hue < 0f)
+			{
+				hue += 360;
+			}
+
+			hue += 30f;
+			hue %= 360f;
+			hue /= 60f;
+			var intHue = Mathf.FloorToInt(hue);
+			return (GlobalTypes.Color)intHue;
 		}
 	}
 }

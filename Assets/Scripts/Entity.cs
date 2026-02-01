@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour
 
     public float movementSpeed {get; set;}
     [SerializeField] protected SpriteRenderer spriteRenderer;
-    [SerializeField] protected bool automaticSpriteColor;
+    public bool automaticSpriteColor;
 
     [ShowNonSerializedField]
     private int _colorAngle;

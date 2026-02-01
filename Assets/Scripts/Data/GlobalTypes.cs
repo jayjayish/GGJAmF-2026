@@ -16,16 +16,18 @@ namespace Data
         public enum Color : byte
         {
             Red,
-            Orange,
             Yellow,
+            Green,
             Cyan,
-            Purple
+            Blue,
+            Purple,
         }
 
         public enum ProjectileTypes : byte
         {
             None,
             Default,
+            PlayerMain,
             TestCircle = 254,
         }
     }

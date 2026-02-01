@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 namespace Data.Entities
@@ -7,5 +8,6 @@ namespace Data.Entities
     {
         public GlobalTypes.ProjectileTypes projType;
         public GameObject projPrefab;
+        public SerializedDictionary<GlobalTypes.Color, Sprite> spriteColorVariants = new SerializedDictionary<GlobalTypes.Color, Sprite>();
     }
 }

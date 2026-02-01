@@ -1,3 +1,5 @@
+using Data;
+using Data.Entities;
 using DG.Tweening;
 using UnityEngine;
 using Utility;
@@ -77,7 +79,11 @@ public class Projectile : Entity
         if (other.GetComponent<Character>() != null) {
             isDead = true;
         }
-
     }
-    
+
+    public void SetSpriteThroughDict(Sprite sprite)
+    {
+        spriteRenderer.color = Color.white;
+        spriteRenderer.sprite = sprite;
+    }
 }

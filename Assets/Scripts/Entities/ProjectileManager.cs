@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Colors;
 using Data;
 using Data.Entities;
 using UnityEngine;
@@ -45,6 +46,18 @@ namespace Entities
             proj.transform.position = position;
             proj.ColorAngle = colorAngle;
 
+            var colorVariants = GetProjectileData(type).spriteColorVariants;
+            if (colorVariants.Count > 0)
+            {
+                GlobalTypes.Color colorType = ColorHSV.GetClosest(colorAngle);
+                proj.automaticSpriteColor = false;
+                proj.SetSpriteThroughDict(colorVariants[colorType]);
+            }
+            else
+            {
+                proj.automaticSpriteColor = true;
+            }
+
             return proj;
         }
 
@@ -76,6 +89,11 @@ namespace Entities
         {
             var obj = Object.Instantiate(data.projPrefab,  parent);
             return  obj.GetComponent<Projectile>();
+        }
+
+        public static ProjectileData GetProjectileData(GlobalTypes.ProjectileTypes type)
+        {
+            return _cachedProjectileData.projectileContainer[type];
         }
     }
 }

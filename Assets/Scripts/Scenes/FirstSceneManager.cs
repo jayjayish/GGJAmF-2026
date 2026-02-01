@@ -1,6 +1,8 @@
 using System;
+using Colors;
 using Data;
 using Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Scenes
@@ -31,6 +33,14 @@ namespace Scenes
         {
             SceneManager.LoadSceneAsync(GlobalTypes.SceneName.UI);
             SceneManager.LoadSceneAsync(sceneName);
+
+            // for (int i = 0; i < 6; i++)
+            // {
+            //     var hue = i * 60;
+            //     var hsvColor = new ColorHSV(hue);
+            //     var rgbColor = hsvColor.ToColor();
+            //     Debug.Log($"<color=#{rgbColor.ToHexString()}>{rgbColor.ToHexString()}</color>");
+            // }
         }
     }
 }

@@ -18,7 +18,8 @@ public static class InputManager
     
     private static List<Action<Vector2>> _moveActions = new ();
     private static List<Action<Vector2>> _aimActions = new ();
-    private static List<Action> _attackActions = new ();
+    private static List<Action> _attackDownActions = new ();
+    private static List<Action> _attackUpActions = new ();
     private static List<Action> _leftRotateDownActions = new ();
     private static List<Action> _rightRotateDownActions = new ();
     private static List<Action> _leftRotateUpActions = new ();
@@ -57,7 +58,8 @@ public static class InputManager
         _actionAsset.FindAction(MoveKey).canceled += InvokeMove;
         _actionAsset.FindAction(AimKey).performed += InvokeAim;
         _actionAsset.FindAction(AimKey).canceled += InvokeAim;
-        _actionAsset.FindAction(AttackKey).started += InvokeAttack;
+        _actionAsset.FindAction(AttackKey).started += InvokeAttackDown;
+        _actionAsset.FindAction(AttackKey).canceled += InvokeAttackUp;
         _actionAsset.FindAction(LeftRotateKey).started += InvokeLeftDown;
         _actionAsset.FindAction(RightRotateKey).started += InvokeRightDown;
         _actionAsset.FindAction(LeftRotateKey).canceled += InvokeLeftUp;
@@ -76,7 +78,7 @@ public static class InputManager
         _moveActions.Remove(callback);
     }
     
-    public static void InvokeMove(InputAction.CallbackContext context)
+    private static void InvokeMove(InputAction.CallbackContext context)
     {
         CalculateMouseWorldPosition();
         var direction = context.ReadValue<Vector2>();
@@ -96,7 +98,7 @@ public static class InputManager
         _aimActions.Remove(callback);
     }
     
-    public static void InvokeAim(InputAction.CallbackContext context)
+    private static void InvokeAim(InputAction.CallbackContext context)
     {
         
         var direction = context.ReadValue<Vector2>();
@@ -106,24 +108,40 @@ public static class InputManager
         }
     }
     
-    public static void AddAttackAction(Action callback)
+    public static void AddAttackDownAction(Action callback)
     {
-        _attackActions.Add(callback);
+        _attackDownActions.Add(callback);
     }
     
-    public static void RemoveAttackAction(Action callback)
+    public static void RemoveAttackDownAction(Action callback)
     {
-        _attackActions.Remove(callback);
+        _attackDownActions.Remove(callback);
     }
-    
-    public static void InvokeAttack(InputAction.CallbackContext context)
+
+    private static void InvokeAttackDown(InputAction.CallbackContext context)
     {
-        foreach(Action action in _attackActions)
+        foreach(Action action in _attackDownActions)
         {
             action.Invoke();
         }
     }
-    
+
+    public static void AddAttackUpAction(Action callback)
+    {
+        _attackUpActions.Add(callback);
+    }
+
+    public static void RemoveAttackUpAction(Action callback)
+    {
+        _attackUpActions.Remove(callback);
+    }
+    private static void InvokeAttackUp(InputAction.CallbackContext context)
+    {
+        foreach(Action action in _attackUpActions)
+        {
+            action.Invoke();
+        }
+    }
     public static void AddLeftDownAction(Action callback)
     {
         _leftRotateDownActions.Add(callback);
@@ -152,7 +170,7 @@ public static class InputManager
         _rightRotateDownActions.Remove(callback);
     }
     
-    public static void InvokeRightDown(InputAction.CallbackContext context)
+    private static void InvokeRightDown(InputAction.CallbackContext context)
     {
         foreach(Action action in _rightRotateDownActions)
         {
@@ -170,7 +188,7 @@ public static class InputManager
         _leftRotateUpActions.Remove(callback);
     }
     
-    public static void InvokeLeftUp(InputAction.CallbackContext context)
+    private static void InvokeLeftUp(InputAction.CallbackContext context)
     {
         foreach(Action action in _leftRotateUpActions)
         {
@@ -188,7 +206,7 @@ public static class InputManager
         _rightRotateUpActions.Remove(callback);
     }
     
-    public static void InvokeRightUp(InputAction.CallbackContext context)
+    private static void InvokeRightUp(InputAction.CallbackContext context)
     {
         foreach(Action action in _rightRotateUpActions)
         {

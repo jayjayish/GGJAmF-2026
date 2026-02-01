@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Entities;
 using UnityEngine;
 
@@ -11,11 +12,23 @@ public class Player : Character
     [SerializeField] private PlayerColorPicker colorPicker;
     [SerializeField] private Vector2 playerDirection;
     [SerializeField] private int colorRotationRate = 1;
+    [SerializeField] private float shootCooldown = 0.5f;
+    [SerializeField] private Animator animator;
+    private const string AttackingBool = "IsAttacking";
+    private const string ForwardBool = "IsForward";
 
-    private bool _isLeft, _isRight, _showingPicker, _pickerTimer;
-    private float _timeLastLeftRight;
+    [SerializeField] private int iFrames = 20;
+
+
+    private bool _isLeft, _isRight, _isShoot, _canShoot, _showingPicker, _pickerTimer;
+    private float _timeLastLeftRight, _timeLastShoot;
     private const float PickerFadeTimeout = 1f;
+    private bool isInvincible;
 
+
+    private int _iFrameCount = 0;
+    private static readonly int IsForward = Animator.StringToHash(ForwardBool);
+    private static readonly int IsAttacking = Animator.StringToHash(AttackingBool);
 
     protected override void Awake()
     {
@@ -42,13 +55,17 @@ public class Player : Character
     protected override void Start()
     {
         InputManager.AddMoveAction(OnMove);
-        InputManager.AddAttackAction(Shoot);
+        InputManager.AddAttackDownAction(Shoot);
         InputManager.AddLeftDownAction(OnLeftDown);
         InputManager.AddRightDownAction(OnRightDown);
         InputManager.AddLeftUpAction(OnLeftUp);
         InputManager.AddRightUpAction(OnRightUp);
+        InputManager.AddAttackDownAction(OnAttackDown);;
+        InputManager.AddAttackUpAction(OnAttackUp);
         
         ReticleMouseFollower.Instance.SetAlpha(1f);
+
+        _canShoot = true;
     }
 
     private void OnRightDown()
@@ -71,10 +88,28 @@ public class Player : Character
         _isLeft = false;
     }
 
+    private void OnAttackUp()
+    {
+        _isShoot = false;
+    }
+
+    private void OnAttackDown()
+    {
+        _isShoot = true;
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
+        if (isInvincible) {
+            _iFrameCount++;
+            if (_iFrameCount > iFrames) {
+                isInvincible = false;
+                _iFrameCount = 0;
+            }
+        }
         MoveCharacter();
+        Shoot();
         ManageColorPicker();
     }
 
@@ -109,12 +144,13 @@ public class Player : Character
         {
             ColorAngle -= colorRotationRate;
         }
-        
+
     }
 
     private void MoveCharacter()
     {
         var moveVec = movementSpeed * Time.deltaTime * playerDirection;
+        animator.SetBool(IsForward, playerDirection.y < 0.1f);
         transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
     }
 
@@ -127,12 +163,24 @@ public class Player : Character
             TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
             return;
         }
+    }    
 
-        var projectile = collision.collider != null ? collision.collider.GetComponentInParent<Projectile>() : null;
-        if (projectile != null && !projectile.isPlayer)
-        {
-            TakeDamage(projectile.attackDamage, projectile.ColorAngle);
-            return;
+    private void OnCollisionStay2D(Collision2D collision) {
+        if (!isInvincible) {            
+            var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
+            if (otherMob != null && otherMob.getAttackDamage() > 0)
+            {
+                TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
+                return;
+            }
+        }
+    }    
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
+        Debug.Log("player getting hit by projectile ");
+        if (hitProjectile != null && !hitProjectile.isPlayer) {
+            TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
     }
 
@@ -143,7 +191,7 @@ public class Player : Character
     
     public override void TakeDamage(int amount, int attackColorAngle)
     {
-        if (isDead)
+        if (isDead || isInvincible)
         {
             return;
         }
@@ -160,12 +208,36 @@ public class Player : Character
         {
             Die();
         }
+
+        isInvincible = true;
     }
 
     private void Shoot()
     {
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position, ColorAngle);
-        attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
+        if (!_isShoot)
+        {
+            return;
+        }
+
+        if (_timeLastShoot + shootCooldown < Time.time && !_canShoot)
+        {
+            _canShoot = true;
+        }
+
+        if (!_canShoot)
+        {
+            return;
+        }
+        var position = transform.position;
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
+        var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
+        attack.moveDirection = projDirection;
+        var angle = -Vector2.SignedAngle(projDirection, Vector2.right);
+        attack.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        animator.SetTrigger(IsAttacking);
+        _timeLastShoot = Time.time;
+        _canShoot = false;
     }
 
     protected override void OnColorChange(int colorAngle)
