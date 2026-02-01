@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: so-playerProjectileSettings
   m_EditorClassIdentifier: 
   health: 5
-  movementSpeed: 25
+  movementSpeed: 12
   colorAngle: 0
-  projType: 254
+  projType: 2
   projPrefab: {fileID: 6789042917775674078, guid: a7e6ba99a01bc77499a8161cde3cde0f, type: 3}
   spriteColorVariants:
     _serializedList:

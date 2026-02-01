@@ -1,4 +1,5 @@
 using System;
+using Data;
 using DG.Tweening;
 using Entities;
 using UnityEngine;
@@ -229,7 +230,7 @@ public class Player : Character
             return;
         }
         var position = transform.position;
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
+        var attack = ProjectileManager.SpawnProjectile(GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
         var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
         attack.moveDirection = projDirection;
         var angle = -Vector2.SignedAngle(projDirection, Vector2.right);

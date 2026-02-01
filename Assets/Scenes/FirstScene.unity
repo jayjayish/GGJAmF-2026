@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3add2837ade32344a9cc618f7b9a042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFollowSpeed: 60
+  cameraFollowSpeed: 10
 --- !u!1 &1108391411
 GameObject:
   m_ObjectHideFlags: 0
