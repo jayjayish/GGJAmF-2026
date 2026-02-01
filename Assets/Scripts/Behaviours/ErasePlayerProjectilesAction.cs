@@ -10,11 +10,11 @@ using Entities;
 public partial class ErasePlayerProjectilesAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
-    public int allowableProjectiles = 6;
+    public int allowableProjectiles = 2;
 
     protected override Status OnStart()
     {
-        if (ProjectileManager.GetPlayerProjectiles().Count >= 6)
+        if (ProjectileManager.GetPlayerProjectiles().Count >= allowableProjectiles)
         {
             foreach (var ball in ProjectileManager.GetPlayerProjectiles())
             {

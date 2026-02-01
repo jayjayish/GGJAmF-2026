@@ -17,9 +17,9 @@ public partial class FireSpreadAction : Action
 
     protected override Status OnStart()
     {
-        var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, 0);
-        var ball2 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, 0);
-        var ball3 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, 0);
+        var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, Agent.Value.GetComponent<Boss1>().ColorAngle);
+        var ball2 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, Agent.Value.GetComponent<Boss1>().ColorAngle);
+        var ball3 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Agent.Value.transform.position, Agent.Value.GetComponent<Boss1>().ColorAngle);
 
         Vector3 directionToPlayer = (Target.Value.transform.position - Agent.Value.transform.position).normalized;
         ball1.moveDirection = (Vector2)directionToPlayer;

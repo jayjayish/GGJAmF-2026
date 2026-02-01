@@ -23,7 +23,7 @@ public partial class StrafingRunAction : Action
     protected override Status OnStart()
     {
         direction = (Location.Value.position - Target.Value.transform.position).normalized;
-        overshoot = 15;
+        overshoot = 5;
         newPos = Location.Value.position + new Vector3(direction.x * overshoot, direction.y * overshoot, 0.0f);
         shotFrequency = 0.1f;
         return Status.Running;
