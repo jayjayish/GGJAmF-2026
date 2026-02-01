@@ -14,6 +14,8 @@ public partial class ResetEverythingAction : Action
     protected override Status OnStart()
     {
         Repeats.Value = 0;
+        //Debug
+        Agent.Value.transform.position = new Vector3(0,0,Agent.Value.transform.position.z);
         return Status.Running;
     }
 

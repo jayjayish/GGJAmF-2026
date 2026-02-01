@@ -66,14 +66,14 @@ protected override Status OnStart()
             m_ColliderAdjustedTargetPosition = GetPositionColliderAdjusted();
         }
 
-        float distance = GetDistanceXZ();
+        float distance = GetDistanceXY();
         bool destinationReached = distance <= (DistanceThreshold + m_ColliderOffset);
 // transform-based movement
 
         m_CurrentSpeed = CustomMove(Agent.Value.transform, m_ColliderAdjustedTargetPosition,
             Agent.Value.GetComponent<Boss1>().movementSpeed, distance, SlowDownDistance);
 
-        if (Repeats == 8)
+        if (Repeats == 8 || destinationReached)
         {
             return Status.Success;
         }
@@ -137,7 +137,7 @@ protected override Status OnStart()
         return Target.Value.transform.position;
     }
 
-    private float GetDistanceXZ()
+    private float GetDistanceXY()
     {
         Vector3 agentPosition = new Vector3(Agent.Value.transform.position.x, Agent.Value.transform.position.y, m_ColliderAdjustedTargetPosition.z);
         return Vector3.Distance(agentPosition, m_ColliderAdjustedTargetPosition);
