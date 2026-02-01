@@ -1,3 +1,4 @@
+using Data.Entities;
 using UnityEngine;
 
 public class PlayerProjectile : Projectile

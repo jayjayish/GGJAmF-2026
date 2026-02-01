@@ -74,7 +74,7 @@ public class BasicMob : Character
         transform.position += new Vector3(dir.x, dir.y, 0f) * movementSpeed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         var hitPlayer = collision.collider != null ? collision.collider.GetComponentInParent<Player>() : null;
         if (hitPlayer != null)
@@ -84,8 +84,8 @@ public class BasicMob : Character
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
+    protected virtual void OnTriggerEnter2D(Collider2D otherCollider) {
+        var hitProjectile = otherCollider != null ? otherCollider.GetComponentInParent<Projectile>() : null;
         if (hitProjectile != null && hitProjectile.isPlayer) {
             TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
