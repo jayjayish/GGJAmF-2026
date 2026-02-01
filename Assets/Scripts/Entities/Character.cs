@@ -29,12 +29,4 @@ public class Character : Entity
         base.Update();
     }
 
-    public void checkIsDead()
-    {
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
 }

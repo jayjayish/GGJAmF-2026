@@ -7,10 +7,10 @@ using Utility;
 public class Projectile : Entity
 {
     [SerializeField] public Collider2D hitBox;
+    [SerializeField] protected Rigidbody2D rb;
 
     [Header("Projectile Stats")]
-    [SerializeField] public bool isPlayer;
-    [SerializeField] public float size = 1f;
+    public bool isPlayer;
     [SerializeField] public int attackDamage = 1;
     public Vector2 moveDirection;
 
@@ -25,6 +25,9 @@ public class Projectile : Entity
         {
             hitBox = hurtBox != null ? hurtBox : GetComponent<Collider2D>();
         }
+        isPlayer = false;
+        gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,7 +43,7 @@ public class Projectile : Entity
         transform.position += Time.deltaTime * movementSpeed * new Vector3(moveDirection.x, moveDirection.y, 0f) ;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other object is a projectile.
         var otherProjectile = other != null ? other.GetComponentInParent<Projectile>() : null;
@@ -53,30 +56,37 @@ public class Projectile : Entity
                 return;
             }
             
-            // Player projectile hit enemy projectile
-            if (isPlayer)
-            {
-                if (otherProjectile.ColorAngle == ColorAngle) {
-                    // this projectile grows in size
-                    size += otherProjectile.size;   // TODO: choose how size increases
-                    return;
-                }
-            }
+            bool isSameColor = Mathf.Abs(Mathf.DeltaAngle(otherProjectile.ColorAngle, ColorAngle)) < 30;
             // Enemy projectile hit player projectile
-            else
+            if (isSameColor)
             {
-                if (otherProjectile.ColorAngle == ColorAngle) {
-                    // this projectile is absorbed by the other projectile
-                    isDead = true;
-                    return;
-                }
+                Debug.Log("enemy proj hit by same color, dies");
+                // this projectile is absorbed by the other projectile
+                isDead = true;
+            } else {
+            // TODO: Decide how to handle projectile damage exchange for different colors
+                isDead = true;
             }
-            
-            // TODO: Decide how to handle projectile damage exchange
-            TakeDamage(otherProjectile.attackDamage, otherProjectile.ColorAngle);
+            return;
         }
 
-        if (other.GetComponent<Character>() != null) {
+        if (other.GetComponent<Player>() != null) {
+            isDead = true;
+        }
+    }
+    
+    public override void TakeDamage(int amount, int attackColorAngle)
+    {
+        if (isDead || amount <= 0)
+        {
+            return;
+        }
+
+        // Enemy projectil does not take scaled damage
+        health = Mathf.Max(0, health - amount);
+
+        if (health <= 0)
+        {            
             isDead = true;
         }
     }
