@@ -46,6 +46,23 @@ public class Player : Character
         transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Take contact damage from other Entities (e.g. mobs).
+        var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
+        if (otherMob == null || otherMob == this)
+        {
+            return;
+        }
+
+        // For now, only EnemyData carries contact damage.
+        if (otherMob.getAttackDamage() > 0)
+        {
+            TakeDamage(otherMob.getAttackDamage());
+            Debug.Log("health: " + health);
+        }
+    }
+
     private void OnMove(Vector2 vector)
     {
         playerDirection = vector.normalized;
