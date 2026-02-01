@@ -22,7 +22,7 @@ public partial class SpawnAdsAction : Action
         for (int i = 0; i < 6; i++)
         {
             var obj = positions[i].transform.position;
-            EnemyManager.SpawnEnemy(Data.GlobalTypes.EnemyTypes.Slime, new Vector2(obj.x, obj.y), i * 60);
+            EnemyManager.SpawnEnemy(Data.GlobalTypes.EnemyTypes.CDPlayer, new Vector2(obj.x, obj.y), i * 60);
         }
         return Status.Running;
     }
