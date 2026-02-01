@@ -235,8 +235,8 @@ public class Player : Character
         Debug.Log(" Player health: " + health);
 
         if (health <= 0)
-        {
-            Die();
+        {            
+            isDead = true;
         }
 
         isInvincible = true;

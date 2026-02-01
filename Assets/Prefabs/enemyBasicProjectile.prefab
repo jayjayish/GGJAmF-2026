@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7766079305531899001}
   - component: {fileID: 1238687928678274670}
   - component: {fileID: 7370501326199152931}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: enemyBasicProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,8 +105,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7766079305531899001}
   automaticSpriteColor: 1
   hitBox: {fileID: 7370501326199152931}
+  rb: {fileID: 0}
   isPlayer: 0
-  size: 1
   attackDamage: 1
   moveDirection: {x: 0, y: 0}
 --- !u!61 &7370501326199152931

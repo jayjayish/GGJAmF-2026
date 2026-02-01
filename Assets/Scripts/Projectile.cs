@@ -10,8 +10,7 @@ public class Projectile : Entity
     [SerializeField] protected Rigidbody2D rb;
 
     [Header("Projectile Stats")]
-    [SerializeField] public bool isPlayer;
-    [SerializeField] public float sizeScaling = 1.2f;
+    public bool isPlayer;
     [SerializeField] public int attackDamage = 1;
     public Vector2 moveDirection;
 
@@ -26,25 +25,8 @@ public class Projectile : Entity
         {
             hitBox = hurtBox != null ? hurtBox : GetComponent<Collider2D>();
         }
-        
-        // only player projectiles have rigidbody
-        if (isPlayer) {
-            gameObject.layer = LayerMask.NameToLayer("Player Projectiles");
-
-            rb = GetComponent<Rigidbody2D>();
-            if (rb == null)
-            {
-                rb = gameObject.AddComponent<Rigidbody2D>();
-            }
-
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.gravityScale = 0f;
-            rb.freezeRotation = true;
-            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        }
-        else {
-            gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
-        }
+        isPlayer = false;
+        gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
 
     }
 
@@ -61,7 +43,7 @@ public class Projectile : Entity
         transform.position += Time.deltaTime * movementSpeed * new Vector3(moveDirection.x, moveDirection.y, 0f) ;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other object is a projectile.
         var otherProjectile = other != null ? other.GetComponentInParent<Projectile>() : null;
@@ -74,42 +56,38 @@ public class Projectile : Entity
                 return;
             }
             
-            bool isSameColor = Mathf.Abs(Mathf.DeltaAngle(otherProjectile.ColorAngle, ColorAngle)) < 15;
-            // Player projectile hit enemy projectile
-            if (isPlayer)
-            {
-                if (isSameColor) {
-                    // this projectile grows in size
-                    transform.localScale *= sizeScaling; // Makes the projectile 20% bigger
-                    return;
-                }
-            }
+            bool isSameColor = Mathf.Abs(Mathf.DeltaAngle(otherProjectile.ColorAngle, ColorAngle)) < 30;
             // Enemy projectile hit player projectile
-            else
+            if (isSameColor)
             {
-                Debug.Log("enemy projectile");
-                if (isSameColor)
-                {
-                    Debug.Log("enemy proj hit by same color, dies");
-                    // this projectile is absorbed by the other projectile
-                    Die();
-                    return;
-                }
+                Debug.Log("enemy proj hit by same color, dies");
+                // this projectile is absorbed by the other projectile
+                isDead = true;
+            } else {
+            // TODO: Decide how to handle projectile damage exchange for different colors
+                isDead = true;
             }
-            
-            // TODO: Decide how to handle projectile damage exchange
-            TakeDamage(otherProjectile.attackDamage, otherProjectile.ColorAngle);
+            return;
         }
 
-        if (isPlayer) {            
-            if (other.GetComponent<BasicMob>() != null) {
-                Die();
-            }
+        if (other.GetComponent<Player>() != null) {
+            isDead = true;
         }
-        else {
-            if (other.GetComponent<Player>() != null) {
-                Die();
-            }
+    }
+    
+    public override void TakeDamage(int amount, int attackColorAngle)
+    {
+        if (isDead || amount <= 0)
+        {
+            return;
+        }
+
+        // Enemy projectil does not take scaled damage
+        health = Mathf.Max(0, health - amount);
+
+        if (health <= 0)
+        {            
+            isDead = true;
         }
     }
 

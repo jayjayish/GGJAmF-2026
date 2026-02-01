@@ -72,7 +72,9 @@ public class Entity : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected virtual void Update() { }
+    protected virtual void Update() { 
+        checkIsDead();
+    }
 
     [Button]
     public void AddColor()
@@ -99,16 +101,23 @@ public class Entity : MonoBehaviour
         //var colorScaled = (-Mathf.Cos(delta * Mathf.Deg2Rad) + 1) / 2f;
 
         // linear scaling with 15 degree leniancy:
-        float colorScaled = Mathf.Clamp01((delta - 15f) / 150f);
-
+        float colorScaled = Mathf.Clamp01((delta - 30f) / 12f);
 
         var scaledDamage = amount * colorScaled;
         health = Mathf.Max(0, health - scaledDamage);
         Debug.Log("health: " + health);
 
         if (health <= 0)
+        {            
+            isDead = true;
+        }
+    }    
+
+    public void checkIsDead()
+    {
+        if (isDead)
         {
-            Die();
+            OnDeath();
         }
     }
 
