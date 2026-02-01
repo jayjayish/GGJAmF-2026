@@ -13,7 +13,7 @@ public partial class RunAwayAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
 
     public Vector2 direction;
-    public float shotFrequency = 0.5f;
+    public float shotFrequency = 0.2f;
     public float deltaTime = 0;
     protected override Status OnStart()
     {
@@ -26,10 +26,10 @@ public partial class RunAwayAction : Action
     {
         direction = calcDirection();
         CustomMove(Agent.Value.transform, Agent.Value.transform.position + (Vector3)direction,
-            20, 30, 0.0f);
+            5, 5, 0.0f);
 
 
-        shotFrequency += Time.deltaTime;
+        deltaTime += Time.deltaTime;
         if (deltaTime > shotFrequency)
         {
             deltaTime = 0.0f;
