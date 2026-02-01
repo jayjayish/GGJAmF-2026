@@ -162,6 +162,7 @@ public static class InputManager
             return;
         }
         _mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+        Debug.Log($"{_mousePosition}");
     }
 
     public static Vector3 GetMousePosition()

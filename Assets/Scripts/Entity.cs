@@ -63,7 +63,6 @@ public class Entity : MonoBehaviour
         {
             health = data.health;
         }
-        movementSpeed = data.movementSpeed * 0.01f; // scale it down
     }
 
     // Update is called once per frame

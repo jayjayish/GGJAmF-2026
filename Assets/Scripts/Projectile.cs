@@ -29,7 +29,6 @@ public class Projectile : Entity
     protected override void Start()
     {
         base.Start();
-        movementSpeed = 0.2f;
     }
 
     // Update is called once per frame
