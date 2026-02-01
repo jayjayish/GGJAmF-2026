@@ -84,10 +84,10 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 01fb965ad869c7e43ae129e40bac5520, type: 2}
   spriteRenderer: {fileID: 7836766562195086665}
   automaticSpriteColor: 0
-  rb: {fileID: 0}
+  rb: {fileID: 5136715394696145602}
   colorPicker: {fileID: 1249166191094931990}
   playerDirection: {x: 0, y: 0}
-  colorRotationRate: 1
+  colorRotationRate: 2
   shootCooldown: 0.5
   animator: {fileID: 2944545777845155398}
   iFrames: 20

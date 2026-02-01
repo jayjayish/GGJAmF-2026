@@ -80,7 +80,8 @@ public class PaletteMob : BasicMob
     private void CheckAllHit()
     {
         if (_colorsEncountered.Count >= 6)
-        {
+        {       
+            deathParticles.transform.position = transform.position;
             deathParticles.Play();
             GameFlowManager.Instance.BossStart();
         }
