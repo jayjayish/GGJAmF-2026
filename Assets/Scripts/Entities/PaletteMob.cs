@@ -78,7 +78,7 @@ public class PaletteMob : BasicMob
     {
         if (_colorsEncountered.Count >= 6)
         {
-            // GameFlowManager.BossStart();
+            GameFlowManager.Instance.BossStart();
         }
     }
 }
