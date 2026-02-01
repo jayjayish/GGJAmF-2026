@@ -30,7 +30,7 @@ public class Entity : MonoBehaviour
                 return;
             }
 
-            _isDead = value 
+            _isDead = value;
             if (_isDead)
             {
                 OnDeath();
@@ -102,9 +102,7 @@ public class Entity : MonoBehaviour
 
     // Update is called once per frame
     protected virtual void Update()
-    { 
-        checkIsDead();
-    }
+    { }
     
     protected virtual void HealthChanged(float newHealth)
     {
