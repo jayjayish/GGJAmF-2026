@@ -6,6 +6,8 @@ public class BasicMob : Character
 
     private float knockBackForce =>
         data is EnemyData enemyData ? enemyData.knockBackForce : 0f;
+    private float knockBackDuration =>
+        data is EnemyData enemyData ? enemyData.knockBackDuration : 0f;
 
     private bool isKnockedBack = false;
     private int knockBackFrames = 0;
@@ -77,7 +79,7 @@ public class BasicMob : Character
 
         
         knockBackFrames++;
-        if (knockBackFrames > 10) {
+        if (knockBackFrames > knockBackDuration) {
             isKnockedBack = false;
             knockBackFrames = 0;
         }
