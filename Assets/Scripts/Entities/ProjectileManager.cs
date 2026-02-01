@@ -69,7 +69,6 @@ namespace Entities
         private static void OnGetProj(Projectile proj)
         {
             proj.gameObject.SetActive(true);
-            proj.SetData();
         }
 
         private static Projectile OnCreateProj(ProjectileData data)

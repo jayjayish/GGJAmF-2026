@@ -50,17 +50,21 @@ public class Player : Character
     {
         // Take contact damage from other Entities (e.g. mobs).
         var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
-        if (otherMob == null || otherMob == this)
-        {
-            return;
-        }
-
-        // For now, only EnemyData carries contact damage.
-        if (otherMob.getAttackDamage() > 0)
+        if (otherMob != null && otherMob.getAttackDamage() > 0)
         {
             TakeDamage(otherMob.getAttackDamage());
             Debug.Log("health: " + health);
+            return;
         }
+
+        var projectile = collision.collider != null ? collision.collider.GetComponentInParent<Projectile>() : null;
+        if (projectile != null && !projectile.isPlayer)
+        {
+            TakeDamage(projectile.attackDamage);
+            Debug.Log("health: " + health);
+            return;
+        }
+
     }
 
     private void OnMove(Vector2 vector)

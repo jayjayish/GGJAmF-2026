@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: so-slimeData
   m_EditorClassIdentifier: 
   health: 10
-  movementSpeed: 1
+  movementSpeed: 3
   attackDamage: 1
-  knockBackForce: 0.1
-  knockBackDuration: 15
+  knockBackForce: 5
+  knockBackDuration: 40

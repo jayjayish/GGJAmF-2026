@@ -98,7 +98,6 @@ public class BasicMob : Character
         }
 
         var away = transform.position - player.transform.position;
-        Debug.Log(away);
         away.z = 0f;
 
         var dir = away.normalized;

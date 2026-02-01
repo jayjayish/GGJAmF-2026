@@ -79,11 +79,5 @@ public class Projectile : Entity
         }
 
     }
-
-    public void SetData()
-    {
-        movementSpeed = data.movementSpeed;
-        health = data.health;
-    }
     
 }
