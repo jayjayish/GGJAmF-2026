@@ -5,7 +5,20 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [SerializeField] protected EntityData data;
-    public float health { get; protected set; }
+
+    protected float _health;
+
+    public float Health
+    {
+        get => _health;
+        protected set
+        {
+            _health = value;
+            HealthChanged(Health);
+        }
+    }
+    
+    protected bool isDead;
 
     public float movementSpeed {get; set;}
     [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -31,7 +44,6 @@ public class Entity : MonoBehaviour
         }
     }
 
-    protected bool isDead;
     protected Collider2D hurtBox;
     
     // Override in subclasses (e.g. Projectile) as needed.
@@ -62,30 +74,26 @@ public class Entity : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
-    {
-    }
+    { }
 
     protected virtual void OnEnable() {
         movementSpeed = data.movementSpeed;
-        health = data.health;
+        Health = data.health;
         _colorAngle = data.colorAngle;
     }
 
     // Update is called once per frame
-    protected virtual void Update() { 
+    protected virtual void Update()
+    { 
         checkIsDead();
     }
-
-    [Button]
-    public void AddColor()
-    {
-        ColorAngle += 10;
-    }
     
-    [Button]
-    public void SubtractColor()
+    protected virtual void HealthChanged(float newHealth)
     {
-        ColorAngle -= 10;
+        if (newHealth <= 0)
+        {            
+            isDead = true;
+        }
     }
 
     public virtual void TakeDamage(int amount, int attackColorAngle)
@@ -104,13 +112,7 @@ public class Entity : MonoBehaviour
         float colorScaled = Mathf.Clamp01((delta - 30f) / 12f);
 
         var scaledDamage = amount * colorScaled;
-        health = Mathf.Max(0, health - scaledDamage);
-        Debug.Log("health: " + health);
-
-        if (health <= 0)
-        {            
-            isDead = true;
-        }
+        Health = Mathf.Max(0, Health - scaledDamage);
     }    
 
     public void checkIsDead()
@@ -133,7 +135,8 @@ public class Entity : MonoBehaviour
     }
 
     // Override to add VFX, drops, despawn logic, etc.
-    protected virtual void OnDeath() { 
+    protected virtual void OnDeath()
+    { 
         gameObject.SetActive(false);
     }
     

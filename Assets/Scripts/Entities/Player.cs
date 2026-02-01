@@ -8,7 +8,7 @@ public class Player : Character
 {
     private static Player _instance;
     public static Player Instance => _instance;
-    public PlayerData PlayerEntityDaya => (PlayerData)data;
+    public static PlayerData PlayerEntityData => (PlayerData)_instance.data;
 
     [SerializeField] private PlayerColorPicker colorPicker;
     [SerializeField] private Vector2 playerDirection;
@@ -31,6 +31,8 @@ public class Player : Character
     private int _iFrameCount = 0;
     private static readonly int IsForward = Animator.StringToHash(ForwardBool);
     private static readonly int IsAttacking = Animator.StringToHash(AttackingBool);
+
+    public static Action<float> OnPlayerHealthChange;
 
     protected override void Awake()
     {
@@ -69,6 +71,24 @@ public class Player : Character
 
         _canShoot = true;
     }
+    
+    // Update is called once per frame
+    protected override void Update()
+    {
+        if (isInvincible) {
+            _iFrameCount++;
+            if (_iFrameCount > iFrames) {
+                isInvincible = false;
+                _iFrameCount = 0;
+            }
+        }
+        MoveCharacter();
+        Shoot();
+        ManageColorPicker();
+        FaceDirection();
+    }
+    
+    #region Inputs
 
     private void OnRightDown()
     {
@@ -100,22 +120,46 @@ public class Player : Character
         _isShoot = true;
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    private void OnMove(Vector2 vector)
     {
-        if (isInvincible) {
-            _iFrameCount++;
-            if (_iFrameCount > iFrames) {
-                isInvincible = false;
-                _iFrameCount = 0;
-            }
-        }
-        MoveCharacter();
-        Shoot();
-        ManageColorPicker();
-        FaceDirection();
+        playerDirection = vector.normalized;
     }
+    
+    private void MoveCharacter()
+    {
+        var moveVec = movementSpeed * Time.deltaTime * playerDirection;
+        animator.SetBool(IsForward, playerDirection.y < 0.1f);
+        transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
+    }
+    
+    private void Shoot()
+    {
+        if (!_isShoot)
+        {
+            return;
+        }
 
+        if (_timeLastShoot + shootCooldown < Time.time && !_canShoot)
+        {
+            _canShoot = true;
+        }
+
+        if (!_canShoot)
+        {
+            return;
+        }
+        var position = transform.position;
+        var attack = ProjectileManager.SpawnProjectile(GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
+        var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
+        attack.moveDirection = projDirection;
+        var angle = -Vector2.SignedAngle(projDirection, Vector2.right);
+        attack.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        animator.SetTrigger(IsAttacking);
+        _timeLastShoot = Time.time;
+        _canShoot = false;
+    }
+    
     private void FaceDirection()
     {
         if (!_isShoot)
@@ -143,6 +187,8 @@ public class Player : Character
             spriteRenderer.transform.localScale = newScale;
         }
     }
+    
+    #endregion
 
     private void ManageColorPicker()
     {
@@ -178,13 +224,6 @@ public class Player : Character
 
     }
 
-    private void MoveCharacter()
-    {
-        var moveVec = movementSpeed * Time.deltaTime * playerDirection;
-        animator.SetBool(IsForward, playerDirection.y < 0.1f);
-        transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Take contact damage from other Entities (e.g. mobs).
@@ -213,11 +252,6 @@ public class Player : Character
             TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
     }
-
-    private void OnMove(Vector2 vector)
-    {
-        playerDirection = vector.normalized;
-    }
     
     public override void TakeDamage(int amount, int attackColorAngle)
     {
@@ -231,10 +265,10 @@ public class Player : Character
             return;
         }
         // Player does not take scaled damage
-        health = Mathf.Max(0, health - amount);
-        Debug.Log(" Player health: " + health);
+        Health = Mathf.Max(0, Health - amount);
+        Debug.Log(" Player health: " + Health);
 
-        if (health <= 0)
+        if (Health <= 0)
         {            
             isDead = true;
         }
@@ -242,33 +276,15 @@ public class Player : Character
         isInvincible = true;
     }
 
-    private void Shoot()
+    protected override void HealthChanged(float newHealth)
     {
-        if (!_isShoot)
-        {
-            return;
-        }
+        base.HealthChanged(newHealth);
 
-        if (_timeLastShoot + shootCooldown < Time.time && !_canShoot)
-        {
-            _canShoot = true;
-        }
-
-        if (!_canShoot)
-        {
-            return;
-        }
-        var position = transform.position;
-        var attack = ProjectileManager.SpawnProjectile(GlobalTypes.ProjectileTypes.PlayerMain, position, ColorAngle);
-        var projDirection = (InputManager.GetMouseWorldPosition() - position).normalized;
-        attack.moveDirection = projDirection;
-        var angle = -Vector2.SignedAngle(projDirection, Vector2.right);
-        attack.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
-        animator.SetTrigger(IsAttacking);
-        _timeLastShoot = Time.time;
-        _canShoot = false;
+        OnPlayerHealthChange?.Invoke(newHealth);
+        
+        Debug.Log("PlayerHP: " + Health);
     }
+
 
     protected override void OnColorChange(int colorAngle)
     {

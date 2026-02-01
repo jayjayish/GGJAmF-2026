@@ -79,9 +79,9 @@ public class Projectile : Entity
         }
 
         // Enemy projectil does not take scaled damage
-        health = Mathf.Max(0, health - amount);
+        Health = Mathf.Max(0, Health - amount);
 
-        if (health <= 0)
+        if (Health <= 0)
         {            
             isDead = true;
         }
@@ -103,7 +103,7 @@ public class Projectile : Entity
     public void SetData(ProjectileData projData)
     {
         _type = projData.projType;
-        health = projData.health;
+        Health = projData.health;
         movementSpeed = projData.movementSpeed;
     }
 }
