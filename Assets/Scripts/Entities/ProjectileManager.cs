@@ -54,8 +54,8 @@ namespace Entities
             {
                 Debug.LogError($"Projectile {type.ToString()} couldn't be loaded");
             }
-            
-            var newPool = new ObjectPool<Projectile>(() => OnCreateProj(projData), OnGetProj, OnReleaseProj);
+            var poolParent = new GameObject($"{type.ToString()}_Pool");
+            var newPool = new ObjectPool<Projectile>(() => OnCreateProj(projData, poolParent.transform), OnGetProj, OnReleaseProj);
             _dictionaryPool.Add(type, newPool);
         }
 
@@ -72,9 +72,9 @@ namespace Entities
             proj.gameObject.SetActive(true);
         }
 
-        private static Projectile OnCreateProj(ProjectileData data)
+        private static Projectile OnCreateProj(ProjectileData data, Transform parent)
         {
-            var obj = Object.Instantiate(data.projPrefab);
+            var obj = Object.Instantiate(data.projPrefab,  parent);
             return  obj.GetComponent<Projectile>();
         }
     }
