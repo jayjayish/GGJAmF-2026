@@ -16,6 +16,7 @@ public class Projectile : Entity
     public Vector2 moveDirection;
 
     private GlobalTypes.ProjectileTypes _type;
+    public GlobalTypes.ProjectileTypes Type => _type;
     
     protected override bool ColliderIsTrigger => true;
 
