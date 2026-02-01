@@ -31,5 +31,14 @@ namespace Data
             EnemyBasic,
             TestCircle = 254,
         }
+        
+        public enum EnemyTypes : byte
+        {
+            Default,
+            EnemyBasic,
+            Slime,
+            Shooter,
+            TestEnemy = 254,
+        }
     }
 }

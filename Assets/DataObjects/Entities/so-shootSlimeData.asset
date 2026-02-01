@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b879b85e156d5764b8648c7c487f653f, type: 3}
-  m_Name: so-slimeData
+  m_Name: so-shootSlimeData
   m_EditorClassIdentifier: 
   health: 3
   movementSpeed: 3
@@ -18,4 +18,4 @@ MonoBehaviour:
   attackDamage: 1
   knockBackForce: 5
   knockBackDuration: 40
-  projPrefab: {fileID: 2351514008691323107, guid: 97aaea1152917b449b3a033e97cb1636, type: 3}
+  projPrefab: {fileID: 1860434418824484214, guid: 48aa5ef17fdd13344bf4df47bf588ebe, type: 3}
