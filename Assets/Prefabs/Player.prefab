@@ -52,6 +52,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6412064379765782937}
   automaticSpriteColor: 0
   rb: {fileID: 0}
+  colorPicker: {fileID: 1249166191094931990}
   playerDirection: {x: 0, y: 0}
 --- !u!61 &5401438743376324512
 BoxCollider2D:
