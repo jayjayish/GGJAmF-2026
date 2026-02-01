@@ -13,6 +13,8 @@ public partial class FireSpreadAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Target;
     [SerializeReference] public BlackboardVariable<float> Speed;
 
+    [SerializeReference] public BlackboardVariable<int> Repeats;
+
     protected override Status OnStart()
     {
         var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, Agent.Value.transform.position, 0);
@@ -30,8 +32,7 @@ public partial class FireSpreadAction : Action
         ball2.movementSpeed = Speed;
         ball3.movementSpeed = Speed;
 
-        
-
+        Repeats.Value+=1;
 
         return Status.Running;
     }
