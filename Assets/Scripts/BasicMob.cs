@@ -74,13 +74,20 @@ public class BasicMob : Character
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("knocked back");
         var hitPlayer = collision.collider != null ? collision.collider.GetComponentInParent<Player>() : null;
-        if (hitPlayer == null)
+        if (hitPlayer != null)
         {
+            isKnockedBack = true;
             return;
         }
-        isKnockedBack = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
+        Debug.Log("is hitting projectile: " + hitProjectile);
+        if (hitProjectile != null && hitProjectile.isPlayer) {
+            TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
+        }
     }
 
     private void BounceBackFromPlayer()

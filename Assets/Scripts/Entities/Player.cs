@@ -67,16 +67,14 @@ public class Player : Character
         var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
         if (otherMob != null && otherMob.getAttackDamage() > 0)
         {
-            TakeDamage(otherMob.getAttackDamage());
-            Debug.Log("health: " + health);
+            TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
             return;
         }
 
         var projectile = collision.collider != null ? collision.collider.GetComponentInParent<Projectile>() : null;
         if (projectile != null && !projectile.isPlayer)
         {
-            TakeDamage(projectile.attackDamage);
-            Debug.Log("health: " + health);
+            TakeDamage(projectile.attackDamage, projectile.ColorAngle);
             return;
         }
 

@@ -71,7 +71,7 @@ public class Projectile : Entity
             }
             
             // TODO: Decide how to handle projectile damage exchange
-            TakeDamage(otherProjectile.attackDamage);
+            TakeDamage(otherProjectile.attackDamage, otherProjectile.ColorAngle);
         }
 
         if (other.GetComponent<Character>() != null) {
