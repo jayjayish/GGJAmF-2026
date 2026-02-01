@@ -30,6 +30,7 @@ namespace Data
             Default,
             PlayerMain,
             EnemyBasic,
+            CD,
             TestCircle = 254,
         }
         
@@ -39,6 +40,7 @@ namespace Data
             EnemyBasic,
             Slime,
             Shooter,
+            CDPlayer,
             TestEnemy = 254,
         }
     }

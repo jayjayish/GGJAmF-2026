@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0005e1f9924bf9b3a423c698cffbcf, type: 3}
+  m_Name: so-CDProjectileSettings
+  m_EditorClassIdentifier: 
+  health: 5
+  movementSpeed: 25
+  colorAngle: 0
+  projType: 4
+  projPrefab: {fileID: 387692449361187123, guid: 0812b67204c66c748b23e1af3d5adbfe, type: 3}
+  spriteColorVariants:
+    _serializedList: []
