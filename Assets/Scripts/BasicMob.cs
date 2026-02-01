@@ -90,8 +90,8 @@ public class BasicMob : Character
 
     private void OnTriggerEnter2D(Collider2D collider) {
         var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
-        Debug.Log("is hitting projectile: " + hitProjectile);
         if (hitProjectile != null && hitProjectile.isPlayer) {
+            Debug.Log("is hitting projectile: " + hitProjectile);
             TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
     }
