@@ -4,7 +4,7 @@ public class PlayerProjectile : Projectile
 {
     [SerializeField] public float sizeScaling = 1.2f;
     public float maxSizeScale = 5f;
-    
+
     protected override void Awake() {
         base.Awake();
 
@@ -21,10 +21,10 @@ public class PlayerProjectile : Projectile
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-    
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;    
+
     }
-    
+
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other object is a projectile.
@@ -55,5 +55,11 @@ public class PlayerProjectile : Projectile
         if (other.GetComponent<BasicMob>() != null) {            
             isDead = true;
         }
+    }
+
+    public virtual void SetData(ProjectileData projData)
+    {
+        base.SetData(projData);
+        isPlayer = true;
     }
 }

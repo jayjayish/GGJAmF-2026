@@ -20,6 +20,8 @@ public class Projectile : Entity
     
     protected override bool ColliderIsTrigger => true;
 
+    protected Vector3 _startingScale;
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +33,8 @@ public class Projectile : Entity
         }
         isPlayer = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
+        
+        _startingScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -101,10 +105,13 @@ public class Projectile : Entity
         spriteRenderer.sprite = sprite;
     }
     
-    public void SetData(ProjectileData projData)
+    public virtual void SetData(ProjectileData projData)
     {
         _type = projData.projType;
         Health = projData.health;
         movementSpeed = projData.movementSpeed;
+        transform.localScale = _startingScale;
+        isDead = false;
+        isPlayer = false;
     }
 }
