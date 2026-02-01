@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   movementSpeed: 3
-  colorAngle: 10
+  colorAngle: 170
   attackDamage: 1
   knockBackForce: 5
   knockBackDuration: 40

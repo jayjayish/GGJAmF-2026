@@ -28,6 +28,7 @@ namespace Data
             None,
             Default,
             PlayerMain,
+            EnemyBasic,
             TestCircle = 254,
         }
     }
