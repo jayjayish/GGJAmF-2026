@@ -6,8 +6,10 @@ public class Player : Character
 {
     private static Player _instance;
     public static Player Instance => _instance;
-
     public PlayerData PlayerEntityDaya => (PlayerData)data;
+
+    [SerializeField] private PlayerColorPicker colorPicker;
+    [SerializeField] private Vector2 playerDirection;
 
     protected override void Awake()
     {
@@ -31,12 +33,24 @@ public class Player : Character
         _instance = null;
     }
     
-    [SerializeField] private Vector2 playerDirection;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         InputManager.AddMoveAction(OnMove);
         InputManager.AddAttackAction(Shoot);
+        InputManager.AddLeftDownAction(OnLeft);
+        InputManager.AddRightDownAction(OnRight);
+        
+    }
+
+    private void OnRight()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnLeft()
+    {
+        throw new NotImplementedException();
     }
 
     // Update is called once per frame
@@ -55,10 +69,5 @@ public class Player : Character
     {
         var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
         attack.moveDirection = (InputManager.GetMousePosition() - transform.position).normalized;
-    }
-    
-    private Vector2 _toRelativePos(Vector2 vector)
-    {
-        return (Vector2)transform.position - vector;
     }
 }
