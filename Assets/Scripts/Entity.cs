@@ -20,7 +20,7 @@ public class Entity : MonoBehaviour
 
     protected bool _isDead;
 
-    protected bool isDead
+    public bool isDead
     {
         get => _isDead;
         set
