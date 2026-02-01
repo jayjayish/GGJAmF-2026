@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492e2d04787447c2b1571aed2d70704f, type: 3}
   m_Name: so-playerData
   m_EditorClassIdentifier: 
-  health: 100
+  health: 5
   movementSpeed: 6
   colorAngle: 0

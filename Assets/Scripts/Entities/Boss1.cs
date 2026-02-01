@@ -14,6 +14,8 @@ public class Boss1 : BasicMob
     // Update is called once per frame
     protected override void Update()
     {
+        
+        BossHealthBarController.Instance.SetBarAction(true);
         BossHealthBarController.Instance.HealthPercent = Health;
     }
 }

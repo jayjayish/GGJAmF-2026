@@ -5399,7 +5399,7 @@ MonoBehaviour:
   rotateCoefficient: 1
   rotateRadius: 4
   lerpCoefficent: 0.2
-  deathParticles: {fileID: 0}
+  deathParticles: {fileID: 7733440227412528174}
 --- !u!58 &4942554386836725404
 CircleCollider2D:
   m_ObjectHideFlags: 0
