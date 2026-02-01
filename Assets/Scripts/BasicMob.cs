@@ -41,6 +41,12 @@ public class BasicMob : Character
     protected override void Update()
     {
         base.Update();
+
+        Move();
+    }
+
+    // override this for different mobs
+    protected virtual void Move() {        
         if (isKnockedBack) {
             BounceBackFromPlayer();
         } else {

@@ -10,6 +10,12 @@ public class Player : Character
 
     [SerializeField] private PlayerColorPicker colorPicker;
     [SerializeField] private Vector2 playerDirection;
+    [SerializeField] private int colorRotationRate = 1;
+
+    private bool _isLeft, _isRight, _showingPicker, _pickerTimer;
+    private float _timeLastLeftRight;
+    private const float PickerFadeTimeout = 1f;
+
 
     protected override void Awake()
     {
@@ -26,8 +32,7 @@ public class Player : Character
         // don't want player to be pushed
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
-
-
+    
     protected virtual void OnDestroy()
     {
         _instance = null;
@@ -38,24 +43,76 @@ public class Player : Character
     {
         InputManager.AddMoveAction(OnMove);
         InputManager.AddAttackAction(Shoot);
-        InputManager.AddLeftDownAction(OnLeft);
-        InputManager.AddRightDownAction(OnRight);
+        InputManager.AddLeftDownAction(OnLeftDown);
+        InputManager.AddRightDownAction(OnRightDown);
+        InputManager.AddLeftUpAction(OnLeftUp);
+        InputManager.AddRightUpAction(OnRightUp);
         
-        ReticleMouseFollower.Instance.gameObject.SetActive(true);
+        ReticleMouseFollower.Instance.SetAlpha(1f);
     }
 
-    private void OnRight()
+    private void OnRightDown()
     {
-        throw new NotImplementedException();
+        _isRight = true;
     }
 
-    private void OnLeft()
+    private void OnLeftDown()
     {
-        throw new NotImplementedException();
+        _isLeft = true;
+    }
+    
+    private void OnRightUp()
+    {
+        _isRight = false;
+    }
+
+    private void OnLeftUp()
+    {
+        _isLeft = false;
     }
 
     // Update is called once per frame
     protected override void Update()
+    {
+        MoveCharacter();
+        ManageColorPicker();
+    }
+
+    private void ManageColorPicker()
+    {
+        if (_showingPicker && !_isLeft && !_isRight)
+        {
+            if (!_pickerTimer)
+            {
+                _pickerTimer = true;
+                _timeLastLeftRight = Time.time;
+            }
+            else if (Time.time > _timeLastLeftRight + PickerFadeTimeout)
+            {
+                _pickerTimer = false;
+                _showingPicker = false;
+                colorPicker.Fadeout();
+            }
+        }
+        else if (!_showingPicker && (_isLeft || _isRight))
+        {
+            _showingPicker = true;
+            _pickerTimer = false;
+            colorPicker.Fadein();
+        }
+
+        if (_isLeft && !_isRight)
+        {
+            ColorAngle += colorRotationRate;
+        }
+        else if (!_isLeft && _isRight)
+        {
+            ColorAngle -= colorRotationRate;
+        }
+        
+    }
+
+    private void MoveCharacter()
     {
         var moveVec = movementSpeed * Time.deltaTime * playerDirection;
         transform.position += new Vector3(moveVec.x, moveVec.y, 0f);
@@ -77,7 +134,6 @@ public class Player : Character
             TakeDamage(projectile.attackDamage, projectile.ColorAngle);
             return;
         }
-
     }
 
     private void OnMove(Vector2 vector)
@@ -110,5 +166,12 @@ public class Player : Character
     {
         var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position, ColorAngle);
         attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
+    }
+
+    protected override void OnColorChange(int colorAngle)
+    {
+        base.OnColorChange(colorAngle);
+        
+        colorPicker.SetRotation(colorAngle);
     }
 }
