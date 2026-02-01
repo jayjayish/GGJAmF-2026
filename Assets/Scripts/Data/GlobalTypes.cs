@@ -13,14 +13,14 @@ namespace Data
             Test = 254
         }
 
-        public enum Color : byte
+        public enum Color
         {
-            Red,
-            Yellow,
-            Green,
-            Cyan,
-            Blue,
-            Purple
+            Red = 0,
+            Yellow = 60,
+            Green = 120,
+            Cyan = 180,
+            Blue  = 240,
+            Purple = 300,
         }
 
         public enum ProjectileTypes : byte
