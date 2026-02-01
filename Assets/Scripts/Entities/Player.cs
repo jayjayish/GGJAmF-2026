@@ -209,7 +209,6 @@ public class Player : Character
 
     private void OnTriggerEnter2D(Collider2D collider) {
         var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
-        Debug.Log("player getting hit by projectile ");
         if (hitProjectile != null && !hitProjectile.isPlayer) {
             TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
