@@ -1,9 +1,14 @@
+using Data;
+using Data.Entities;
+using DG.Tweening;
+using Entities;
 using UnityEngine;
 
 public class PlayerProjectile : Projectile
 {
     [SerializeField] public float sizeScaling = 1.2f;
-    
+    public float maxSizeScale = 5f;
+
     protected override void Awake() {
         base.Awake();
 
@@ -20,10 +25,10 @@ public class PlayerProjectile : Projectile
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-    
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;    
+
     }
-    
+
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the other object is a projectile.
@@ -41,7 +46,9 @@ public class PlayerProjectile : Projectile
             // Player projectile hit enemy projectile
             if (isSameColor) {
                 // this projectile grows in size
-                transform.localScale *= sizeScaling; // Makes the projectile 20% bigger
+                if (transform.localScale.x < maxSizeScale) {
+                    transform.localScale *= sizeScaling; // Makes the projectile 20% bigger
+                }
             } else {
             // TODO: Decide how to handle projectile damage exchange for different colors
                 isDead = true;
@@ -52,5 +59,11 @@ public class PlayerProjectile : Projectile
         if (other.GetComponent<BasicMob>() != null) {            
             isDead = true;
         }
+    }
+
+    public virtual void SetData(ProjectileData projData)
+    {
+        base.SetData(projData);
+        isPlayer = true;
     }
 }

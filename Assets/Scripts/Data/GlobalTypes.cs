@@ -8,6 +8,7 @@ namespace Data
             MainMenu,
             Hub,
             UI,
+            Gameplay,
             AmyTest = 252,
             FredTest = 253,
             Test = 254
