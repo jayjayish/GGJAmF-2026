@@ -8,7 +8,7 @@ using System.Linq;
 using Entities;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Spawn Ads", story: "[Agent] Spawns [Ads] around [Target]", category: "Action", id: "4ddff27eac877299e8e24645d3b0a6b8")]
+[NodeDescription(name: "Spawn Ads", story: "[Agent] Spawns around [Target]", category: "Action", id: "4ddff27eac877299e8e24645d3b0a6b8")]
 public partial class SpawnAdsAction : Action
 {
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
