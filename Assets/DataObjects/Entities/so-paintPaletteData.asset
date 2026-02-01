@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b879b85e156d5764b8648c7c487f653f, type: 3}
+  m_Name: so-paintPaletteData
+  m_EditorClassIdentifier: 
+  health: 999
+  movementSpeed: 3
+  colorAngle: 0
+  attackDamage: 1
+  knockBackForce: 5
+  knockBackDuration: 40
+  projPrefab: {fileID: 2351514008691323107, guid: 97aaea1152917b449b3a033e97cb1636, type: 3}
