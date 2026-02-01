@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss1 : EnemyBase
+public class Boss1 : BasicMob
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()

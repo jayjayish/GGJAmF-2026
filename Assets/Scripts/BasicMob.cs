@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBase : Character
+public class BasicMob : Character
 {
     private Player player;
 
@@ -114,7 +114,7 @@ public class EnemyBase : Character
 
     public void SetData(EnemyData spawnData)
     {
-        health = spawnData.health;
+        Health = spawnData.health;
         movementSpeed = spawnData.movementSpeed;
         knockBackDuration = spawnData.knockBackDuration;
         knockBackForce = spawnData.knockBackForce;
