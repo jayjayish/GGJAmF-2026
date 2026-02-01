@@ -17,7 +17,6 @@ public partial class ResetEverythingAction : Action
     {
         Repeats.Value = 0;
         //Debug
-        Agent.Value.transform.position = new Vector3(0,0,Agent.Value.transform.position.z);
         AgentHealth.Value = Agent.Value.GetComponent<Boss1>().Health;
         return Status.Running;
     }
