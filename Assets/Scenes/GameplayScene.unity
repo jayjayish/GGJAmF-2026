@@ -1314,6 +1314,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 558411427144588635, guid: 51fd29fd7c711c548b70bc5fdc1057cb, type: 3}
+      propertyPath: Boss
+      value: 
+      objectReference: {fileID: 1557341810}
+    - target: {fileID: 558411427144588635, guid: 51fd29fd7c711c548b70bc5fdc1057cb, type: 3}
+      propertyPath: PaletteMob
+      value: 
+      objectReference: {fileID: 706866537364299744}
     - target: {fileID: 5953035074975442668, guid: 51fd29fd7c711c548b70bc5fdc1057cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.6898552
@@ -1420,6 +1428,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+--- !u!1 &706866537364299744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4803723799968982528, guid: ec7cdbf2df9399e489881f7943411719, type: 3}
+  m_PrefabInstance: {fileID: 706866537364299743}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
