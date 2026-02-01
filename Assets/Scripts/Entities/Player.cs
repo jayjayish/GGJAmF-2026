@@ -48,7 +48,7 @@ public class Player : Character
         InputManager.AddLeftUpAction(OnLeftUp);
         InputManager.AddRightUpAction(OnRightUp);
         
-        ReticleMouseFollower.Instance.gameObject.SetActive(true);
+        ReticleMouseFollower.Instance.SetAlpha(1f);
     }
 
     private void OnRightDown()
