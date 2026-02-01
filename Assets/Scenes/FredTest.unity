@@ -184,9 +184,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5030653206350666717, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
       insertIndex: -1
       addedObject: {fileID: 954512609}
-    - targetCorrespondingSourceObject: {fileID: 5030653206350666717, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 954512608}
   m_SourcePrefab: {fileID: 100100000, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
 --- !u!1 &954512606 stripped
 GameObject:
@@ -198,28 +195,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7956128078010689424, guid: 847f3e4aae239994e9b21a7e6ae50829, type: 3}
   m_PrefabInstance: {fileID: 954512605}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &954512608
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954512606}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &954512609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,14 +207,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Graph: {fileID: 0}
-  m_BlackboardVariableOverridesList: []
-  m_OriginalGraph: {fileID: 0}
+  m_Graph: {fileID: 5662338252570520759, guid: f67b945eb1e0481478807ea2c1633ff0, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 307892562793595249
+  - rid: 307892562793595296
+  m_OriginalGraph: {fileID: 5662338252570520759, guid: f67b945eb1e0481478807ea2c1633ff0, type: 2}
   m_IsInitialised: 0
   m_IsStarted: 0
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 307892562793595249
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 954512606}
+    - rid: 307892562793595296
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 7678089122366428778
+          m_Value1: 13893854570309955497
+        Name: New GameObject
+        m_Value: {fileID: 1969115597}
 --- !u!114 &954512610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,9 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55310723b418424380d0dc65886949d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 01fb965ad869c7e43ae129e40bac5520, type: 2}
   movementSpeed: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 1626711561}
   automaticSpriteColor: 0
   rb: {fileID: 0}
 --- !u!1 &1203070791
@@ -401,7 +394,7 @@ GameObject:
   - component: {fileID: 1626711560}
   - component: {fileID: 1626711561}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -466,7 +459,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2600822460309616018, guid: 9311ca60ed2227a4ea41e4581fabb8e6, type: 3}
+  m_Sprite: {fileID: 66117175078186166, guid: d046f8f536baffc47ad50c191c3758bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -530,6 +523,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9197126354648365234, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+      propertyPath: movementSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9197126354648365234, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
       propertyPath: mouseTransform
       value: 
       objectReference: {fileID: 1455870674}
@@ -538,6 +535,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+--- !u!1 &1969115597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1381919602965866695, guid: 39e5cd7c49ea7a74285dc844fe5867d9, type: 3}
+  m_PrefabInstance: {fileID: 1969115596}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
