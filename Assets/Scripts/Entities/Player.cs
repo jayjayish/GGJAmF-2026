@@ -109,7 +109,7 @@ public class Player : Character
         {
             ColorAngle -= colorRotationRate;
         }
-        
+
     }
 
     private void MoveCharacter()
@@ -164,7 +164,7 @@ public class Player : Character
 
     private void Shoot()
     {
-        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position, ColorAngle);
+        var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.PlayerMain, transform.position, ColorAngle);
         attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
     }
 

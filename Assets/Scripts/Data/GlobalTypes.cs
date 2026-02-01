@@ -16,9 +16,10 @@ namespace Data
         public enum Color : byte
         {
             Red,
-            Orange,
             Yellow,
+            Green,
             Cyan,
+            Blue,
             Purple
         }
 
@@ -26,6 +27,7 @@ namespace Data
         {
             None,
             Default,
+            PlayerMain,
             TestCircle = 254,
         }
     }

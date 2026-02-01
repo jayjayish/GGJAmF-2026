@@ -20,7 +20,8 @@ namespace Colors
 		*/
 		public ColorHSV(float h)
 		{
-			SetAllVariables(h, 0.8f, 1f, 1f);
+			var v = (Mathf.Cos(h * Mathf.Deg2Rad * 3f) - 1f) * 0.1f + 1f;
+			SetAllVariables(h, 1f, v, 1f);
 		}
 
 		public ColorHSV(float h, float s, float v, float a)
