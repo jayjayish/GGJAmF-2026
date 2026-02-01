@@ -41,6 +41,7 @@ public class Player : Character
         InputManager.AddLeftDownAction(OnLeft);
         InputManager.AddRightDownAction(OnRight);
         
+        ReticleMouseFollower.Instance.gameObject.SetActive(true);
     }
 
     private void OnRight()
