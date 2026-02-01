@@ -46,11 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55310723b418424380d0dc65886949d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 01fb965ad869c7e43ae129e40bac5520, type: 2}
-  movementSpeed: 0
+  data: {fileID: 11400000, guid: f3ccfa5b7936c6341b5abfbdde60b50f, type: 2}
   spriteRenderer: {fileID: 4796257164334561163}
   automaticSpriteColor: 0
   rb: {fileID: 0}
+  knockBackForce: 0
+  knockBackDuration: 0
 --- !u!114 &4710703574171354635
 MonoBehaviour:
   m_ObjectHideFlags: 0

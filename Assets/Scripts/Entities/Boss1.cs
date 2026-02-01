@@ -6,6 +6,7 @@ public class Boss1 : BasicMob
     protected override void Start()
     {
         base.Start();
+        movementSpeed = 2;
     }
 
     // Update is called once per frame
