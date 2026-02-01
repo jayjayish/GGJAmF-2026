@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameFlowManager : MonoBehaviour
+public class GameFlowManager : MonoSingleton<GameFlowManager>
 {     
     [SerializeField] public GameObject TextCanvas;
     [SerializeField] public TMP_Text TutorialText;
@@ -27,6 +27,8 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
+        Boss.SetActive(false);
+
         _showingText = true;
         _textToDisplay = 0;
         _textDisplayTime = 0f;
@@ -157,6 +159,7 @@ public class GameFlowManager : MonoBehaviour
 
 
     public void BossStart() {
-        
+        PaletteMob.SetActive(false);
+        Boss.SetActive(true);
     }
 }
