@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerProjectile : Projectile
 {
     [SerializeField] public float sizeScaling = 1.2f;
+    public float maxSizeScale = 5f;
     
     protected override void Awake() {
         base.Awake();
@@ -41,7 +42,9 @@ public class PlayerProjectile : Projectile
             // Player projectile hit enemy projectile
             if (isSameColor) {
                 // this projectile grows in size
-                transform.localScale *= sizeScaling; // Makes the projectile 20% bigger
+                if (transform.localScale.x < maxSizeScale) {
+                    transform.localScale *= sizeScaling; // Makes the projectile 20% bigger
+                }
             } else {
             // TODO: Decide how to handle projectile damage exchange for different colors
                 isDead = true;
