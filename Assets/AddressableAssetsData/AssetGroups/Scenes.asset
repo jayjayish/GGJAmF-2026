@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: Scenes
   m_GUID: 45f2ad0c68f05ed4aa65f9392724e70e
   m_SerializeEntries:
+  - m_GUID: 1986d5f80388cfe488a4500cb831f081
+    m_Address: Assets/DataObjects/Scenes/so-TestScene.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 20a3fe4a090a76844820f81b22eb23c8
+    m_Address: Assets/DataObjects/Scenes/so-UIScene.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 30d11cfcc4d4fb344b3c32ff0b763585
     m_Address: Assets/Scenes/AmyTest.unity
     m_ReadOnly: 0
@@ -37,6 +47,21 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c8a972423a8652f439adf1300d2cb4b8
     m_Address: Assets/Scenes/FredTest.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce959904811b2eb4e8bd0347ade1d61e
+    m_Address: Assets/DataObjects/Scenes/so-Gameplay.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0d6ddcac6064824aaebd608be1b4ac2
+    m_Address: Assets/Scenes/GameplayScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3a61314218e63443a8b6403f4b71e4d
+    m_Address: Assets/DataObjects/Scenes/so-MainMenu.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

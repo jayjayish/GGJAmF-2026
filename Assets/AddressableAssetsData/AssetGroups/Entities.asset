@@ -15,8 +15,38 @@ MonoBehaviour:
   m_GroupName: Entities
   m_GUID: 260bcf838104da74fb0c51b437b3972e
   m_SerializeEntries:
+  - m_GUID: 01fb965ad869c7e43ae129e40bac5520
+    m_Address: Assets/DataObjects/Entities/so-playerData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4902a00f8a5c43e479695f4f1bee309c
     m_Address: so-enemyContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 839fbd3338d8a804da090bb6745fe325
+    m_Address: Assets/DataObjects/Entities/so-enemyBasicProjectileSettings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96773598573b90a488496750cd22370c
+    m_Address: so-projectileContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c31bd96208cc3394789a4f02c02caa16
+    m_Address: Assets/DataObjects/Entities/so-shootSlimeData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdded1a6dafb3104291bd0fd39a4d84d
+    m_Address: Assets/DataObjects/Entities/so-playerProjectileSettings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f3ccfa5b7936c6341b5abfbdde60b50f
+    m_Address: Assets/DataObjects/Entities/so-slimeData.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
