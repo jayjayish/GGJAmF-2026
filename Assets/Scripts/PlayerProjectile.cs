@@ -1,3 +1,7 @@
+using Data;
+using Data.Entities;
+using DG.Tweening;
+using Entities;
 using UnityEngine;
 
 public class PlayerProjectile : Projectile
