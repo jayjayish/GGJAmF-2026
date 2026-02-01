@@ -31,7 +31,6 @@ public class Projectile : Entity
         {
             hitBox = hurtBox != null ? hurtBox : GetComponent<Collider2D>();
         }
-        isPlayer = false;
         gameObject.layer = LayerMask.NameToLayer("Enemy Projectiles");
         
         _startingScale = transform.localScale;
@@ -112,6 +111,5 @@ public class Projectile : Entity
         movementSpeed = projData.movementSpeed;
         transform.localScale = _startingScale;
         isDead = false;
-        isPlayer = false;
     }
 }

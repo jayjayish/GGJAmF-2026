@@ -446,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4313183877014432289}
   - component: {fileID: 6400462746671620680}
-  - component: {fileID: 1894036959109311454}
+  - component: {fileID: 4942554386836725404}
   m_Layer: 0
   m_Name: Palette
   m_TagString: Untagged
@@ -463,7 +463,7 @@ Transform:
   m_GameObject: {fileID: 4803723799968982528}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.48, y: 3.14, z: -0.049059156}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -482,8 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1e323eaef4d864e986091b07d9fd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  data: {fileID: 11400000, guid: 151a712563ef32c4e9e583e3cb0c52ae, type: 2}
+  spriteRenderer: {fileID: 1524846476321475651}
   automaticSpriteColor: 0
   rb: {fileID: 0}
   knockBackForce: 0
@@ -502,8 +502,13 @@ MonoBehaviour:
       Value: {fileID: 1316085897175505008}
     - Key: 5
       Value: {fileID: 440481307837201888}
---- !u!61 &1894036959109311454
-BoxCollider2D:
+  wobbleCoefficient: 1
+  wobbleAmp: 1
+  rotateCoefficient: 1
+  rotateRadius: 4
+  lerpCoefficent: 0.2
+--- !u!58 &4942554386836725404
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -536,18 +541,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.27, y: 0.15}
+  m_Radius: 1.66
 --- !u!1 &5054826358335327416
 GameObject:
   m_ObjectHideFlags: 0
