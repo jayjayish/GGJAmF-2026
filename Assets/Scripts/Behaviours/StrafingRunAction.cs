@@ -23,9 +23,9 @@ public partial class StrafingRunAction : Action
     protected override Status OnStart()
     {
         direction = (Location.Value.position - Target.Value.transform.position).normalized;
-        overshoot = 5;
+        overshoot = 15;
         newPos = Location.Value.position + new Vector3(direction.x * overshoot, direction.y * overshoot, 0.0f);
-        shotFrequency = 1.0f;
+        shotFrequency = 0.1f;
         return Status.Running;
     }
 
@@ -37,7 +37,7 @@ public partial class StrafingRunAction : Action
 
         bool destinationReached = distance <= distanceThreshold;
 
-        shotFrequency += Time.deltaTime;
+        deltaTime += Time.deltaTime;
         if (deltaTime > shotFrequency)
         {
             deltaTime = 0.0f;
@@ -90,6 +90,7 @@ public partial class StrafingRunAction : Action
 
     private void Airstrike()
     {
+        Debug.Log("Airstriking");
         var ball1 = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.EnemyBasic, Target.Value.transform.position, Target.Value.GetComponent<Boss1>().ColorAngle);
         ball1.moveDirection = Quaternion.Euler(0, 0, 90.0f) * direction;
         ball1.movementSpeed = 7;

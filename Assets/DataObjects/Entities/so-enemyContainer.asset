@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyContainer:
     _serializedList:
+    - Key: 4
+      Value: {fileID: 11400000, guid: b1c576256768d5342b8c4eeb3622cbb9, type: 2}
     - Key: 3
       Value: {fileID: 11400000, guid: c31bd96208cc3394789a4f02c02caa16, type: 2}
     - Key: 2

@@ -30,6 +30,7 @@ public partial class OmfgAction : Action
         "\n- ClosestPointOnTargetCollider: Use the closest point on the target's own collider only" +
         "\n- ExactTargetPosition: Use the exact position of the target, ignoring colliders. Default if no collider is found.")]
     [SerializeReference] public BlackboardVariable<TargetPositionMode> m_TargetPositionMode = new(TargetPositionMode.ClosestPointOnAnyCollider);
+    [SerializeReference] public BlackboardVariable<float> speed = new BlackboardVariable<float>(1.0f);
 
     private Animator m_Animator;
     private Vector3 m_LastTargetPosition;
@@ -71,7 +72,7 @@ protected override Status OnStart()
 // transform-based movement
 
         m_CurrentSpeed = CustomMove(Agent.Value.transform, m_ColliderAdjustedTargetPosition,
-            Agent.Value.GetComponent<Boss1>().movementSpeed, distance, SlowDownDistance);
+            speed, distance, SlowDownDistance);
 
         if (Repeats == 8 || destinationReached)
         {
