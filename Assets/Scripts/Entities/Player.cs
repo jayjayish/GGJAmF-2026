@@ -12,10 +12,16 @@ public class Player : Character
     [SerializeField] private Vector2 playerDirection;
     [SerializeField] private int colorRotationRate = 1;
 
+    [SerializeField] private int iFrames = 20;
+
+
     private bool _isLeft, _isRight, _showingPicker, _pickerTimer;
     private float _timeLastLeftRight;
     private const float PickerFadeTimeout = 1f;
+    private bool isInvincible;
 
+
+    private int _iFrameCount = 0;
 
     protected override void Awake()
     {
@@ -74,6 +80,13 @@ public class Player : Character
     // Update is called once per frame
     protected override void Update()
     {
+        if (isInvincible) {
+            _iFrameCount++;
+            if (_iFrameCount > iFrames) {
+                isInvincible = false;
+                _iFrameCount = 0;
+            }
+        }
         MoveCharacter();
         ManageColorPicker();
     }
@@ -127,12 +140,24 @@ public class Player : Character
             TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
             return;
         }
+    }    
 
-        var projectile = collision.collider != null ? collision.collider.GetComponentInParent<Projectile>() : null;
-        if (projectile != null && !projectile.isPlayer)
-        {
-            TakeDamage(projectile.attackDamage, projectile.ColorAngle);
-            return;
+    private void OnCollisionStay2D(Collision2D collision) {
+        if (!isInvincible) {            
+            var otherMob = collision.collider != null ? collision.collider.GetComponentInParent<BasicMob>() : null;
+            if (otherMob != null && otherMob.getAttackDamage() > 0)
+            {
+                TakeDamage(otherMob.getAttackDamage(), otherMob.ColorAngle);
+                return;
+            }
+        }
+    }    
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        var hitProjectile = collider != null ? collider.GetComponentInParent<Projectile>() : null;
+        Debug.Log("player getting hit by projectile ");
+        if (hitProjectile != null && !hitProjectile.isPlayer) {
+            TakeDamage(hitProjectile.attackDamage, hitProjectile.ColorAngle);
         }
     }
 
@@ -143,7 +168,7 @@ public class Player : Character
     
     public override void TakeDamage(int amount, int attackColorAngle)
     {
-        if (isDead)
+        if (isDead || isInvincible)
         {
             return;
         }
@@ -160,6 +185,8 @@ public class Player : Character
         {
             Die();
         }
+
+        isInvincible = true;
     }
 
     private void Shoot()
