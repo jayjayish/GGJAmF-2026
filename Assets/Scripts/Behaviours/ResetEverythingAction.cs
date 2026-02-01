@@ -11,11 +11,14 @@ public partial class ResetEverythingAction : Action
     [SerializeReference] public BlackboardVariable<GameObject> Agent;
     [SerializeReference] public BlackboardVariable<int> Repeats;
 
+    [SerializeReference] public BlackboardVariable<float> AgentHealth;
+
     protected override Status OnStart()
     {
         Repeats.Value = 0;
         //Debug
         Agent.Value.transform.position = new Vector3(0,0,Agent.Value.transform.position.z);
+        AgentHealth.Value = Agent.Value.GetComponent<Boss1>().health;
         return Status.Running;
     }
 

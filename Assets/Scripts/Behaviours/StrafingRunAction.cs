@@ -17,12 +17,15 @@ public partial class StrafingRunAction : Action
     public Vector2 direction;
     public int overshoot;
     public Vector3 newPos;
+    public float shotFrequency;
+    public float deltaTime = 0;
 
     protected override Status OnStart()
     {
         direction = (Location.Value.position - Target.Value.transform.position).normalized;
         overshoot = 5;
         newPos = Location.Value.position + new Vector3(direction.x * overshoot, direction.y * overshoot, 0.0f);
+        shotFrequency = 1.0f;
         return Status.Running;
     }
 
@@ -30,11 +33,16 @@ public partial class StrafingRunAction : Action
     {
         float distance = GetDistanceXY(Target.Value.transform.position, newPos);
         CustomMove(Target.Value.transform, newPos,
-            Target.Value.GetComponent<Boss1>().movementSpeed, distance, 0.0f);
+            20, distance, 0.0f);
 
         bool destinationReached = distance <= distanceThreshold;
 
-        Airstrike();
+        shotFrequency += Time.deltaTime;
+        if (deltaTime > shotFrequency)
+        {
+            deltaTime = 0.0f;
+            Airstrike();
+        }
 
         if (destinationReached)
         {
