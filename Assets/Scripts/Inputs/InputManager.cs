@@ -24,7 +24,8 @@ public static class InputManager
     private static List<Action> _leftRotateUpActions = new ();
     private static List<Action> _rightRotateUpActions = new ();
 
-    private static Vector3 _mousePosition;
+    private static Vector3 _mouseWorldPosition;
+    private static Vector2 _mouseScreenPosition;
 
     public enum ActionEnum : byte
     {
@@ -77,7 +78,7 @@ public static class InputManager
     
     public static void InvokeMove(InputAction.CallbackContext context)
     {
-        
+        CalculateMouseWorldPosition();
         var direction = context.ReadValue<Vector2>();
         foreach(Action<Vector2> action in _moveActions)
         {
@@ -201,11 +202,18 @@ public static class InputManager
         {
             return;
         }
-        _mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+
+        _mouseScreenPosition = mousePos;
+        CalculateMouseWorldPosition();
     }
 
-    public static Vector3 GetMousePosition()
+    public static Vector3 GetMouseWorldPosition()
     {
-        return _mousePosition;
+        return _mouseWorldPosition;
+    }
+
+    public static void CalculateMouseWorldPosition()
+    {
+        _mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(_mouseScreenPosition.x, _mouseScreenPosition.y, -Camera.main.transform.position.z));
     }
 }

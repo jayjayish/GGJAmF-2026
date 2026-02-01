@@ -87,6 +87,6 @@ public class Player : Character
     private void Shoot()
     {
         var attack = ProjectileManager.SpawnProjectile(Data.GlobalTypes.ProjectileTypes.TestCircle, transform.position);
-        attack.moveDirection = (InputManager.GetMousePosition() - transform.position).normalized;
+        attack.moveDirection = (InputManager.GetMouseWorldPosition() - transform.position).normalized;
     }
 }
