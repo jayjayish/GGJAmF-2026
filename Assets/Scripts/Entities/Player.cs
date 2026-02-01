@@ -7,6 +7,8 @@ public class Player : Character
     private static Player _instance;
     public static Player Instance => _instance;
 
+    public PlayerData PlayerEntityDaya => (PlayerData)data;
+
     protected override void Awake()
     {
         if(_instance != null && _instance != this)

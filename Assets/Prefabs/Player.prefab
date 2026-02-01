@@ -147,7 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6938f35def626384f939012578565626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  ColorAngle: 0
+  data: {fileID: 11400000, guid: 01fb965ad869c7e43ae129e40bac5520, type: 2}
   movementSpeed: 0.26
+  spriteRenderer: {fileID: 6412064379765782937}
+  automaticSpriteColor: 0
+  rb: {fileID: 0}
   playerDirection: {x: 0, y: 0}
+  mouseTransform: {fileID: 0}
