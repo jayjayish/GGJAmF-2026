@@ -47,7 +47,6 @@ public class Player : Character
         
         base.Awake();
         // don't want player to be pushed
-        rb.bodyType = RigidbodyType2D.Kinematic;
     }
     
     protected virtual void OnDestroy()
