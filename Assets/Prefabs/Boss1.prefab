@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4710703574171354635}
   - component: {fileID: 1342704830497945009}
   - component: {fileID: 3051896148936371734}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Boss1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,6 +55,7 @@ MonoBehaviour:
   rb: {fileID: 3051896148936371734}
   knockBackForce: 0
   knockBackDuration: 0
+  particleSys: {fileID: 0}
 --- !u!114 &4710703574171354635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5030653206350666717}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -212,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3909171016408343428}
   - component: {fileID: 3498942894577102904}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,7 +301,7 @@ GameObject:
   - component: {fileID: 3765132790883237134}
   - component: {fileID: 4796257164334561163}
   - component: {fileID: 4178680709990738513}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
