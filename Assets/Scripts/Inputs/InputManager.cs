@@ -54,6 +54,7 @@ public static class InputManager
 
     private static void InitializeListeners()
     {
+        _actionAsset.Enable();
         _actionAsset.FindAction(MoveKey).performed += InvokeMove;
         _actionAsset.FindAction(MoveKey).canceled += InvokeMove;
         _actionAsset.FindAction(AimKey).performed += InvokeAim;
